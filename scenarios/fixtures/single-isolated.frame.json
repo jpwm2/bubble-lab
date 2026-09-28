@@ -1,0 +1,27 @@
+{
+  "contract_version":"1.0.0",
+  "kind":"FRAME",
+  "frame_id":"single-isolated-0000",
+  "simulation_time_s":0.0,
+  "manifest":{
+    "contract_version":"1.0.0",
+    "units":{"system":"SI","length":"m","time":"s","mass":"kg","pressure":"Pa","temperature":"K","amount":"mol"},
+    "solver":{"backend":"fixture-generator","version":"1.0"},
+    "fidelity_tier":"HIGH_FIDELITY",
+    "feature_disclosures":{"surface_geometry":"MODELED","shared_films":"NOT_IMPLEMENTED","pressure":"NOT_IMPLEMENTED","film_thickness":"NOT_IMPLEMENTED"},
+    "random_seed":101,
+    "provenance":{"producer":"bubble-state-contract fixture","source_scenario":null,"created_at":null,"tolerances":{}}
+  },
+  "environment":{"gravity_m_s2":[0.0,-9.80665,0.0],"ambient_density_kg_m3":1.204,"ambient_dynamic_viscosity_pa_s":0.00001825},
+  "bubbles":[{"id":"bubble-a","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[0.0,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"ALIVE"}],
+  "surface_meshes":[{
+    "id":"mesh-a","geometry_role":"OUTER_FILM","owner_bubble_ids":["bubble-a"],"region_labels":["fixture"],
+    "vertex_count":4,"face_count":4,
+    "vertices":{"storage":"INLINE","dtype":"float64","shape":[4,3],"values":[[0.0,0.001,0.0],[-0.0008,-0.0005,0.0007],[0.0008,-0.0005,0.0007],[0.0,-0.0005,-0.0009]]},
+    "faces":{"storage":"INLINE","dtype":"uint32","shape":[4,3],"values":[[0,1,2],[0,2,3],[0,3,1],[1,3,2]]}
+  }],
+  "film_regions":[{"id":"film-a-exterior","kind":"OUTER","adjacent":["bubble-a","EXTERIOR"],"mesh_id":"mesh-a","surface_tension_n_m":0.03}],
+  "junctions":[],
+  "topology":{"adjacency":[],"events":[]},
+  "diagnostics":{"timestep_s":0.001,"nonlinear_iterations":0,"linear_iterations":0,"residuals":{},"max_relative_volume_error":0.0,"mesh_quality":{"fixture_only":true},"compute_time_s":0.0}
+}

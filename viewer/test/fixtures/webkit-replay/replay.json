@@ -1,0 +1,40 @@
+{
+  "bundle_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "scenario": {
+    "id": "webkit-mobile-test",
+    "sha256": "TEST_FIXTURE"
+  },
+  "backend": {
+    "identity": "fixture-generator",
+    "version": "1.0-test"
+  },
+  "random_seed": 928,
+  "frames": [
+    {
+      "frame_id": "webkit-mobile-0000",
+      "path": "frame-0000.json",
+      "simulation_time_s": 0
+    },
+    {
+      "frame_id": "webkit-mobile-0001",
+      "path": "frame-0001.json",
+      "simulation_time_s": 0.1
+    }
+  ],
+  "checkpoints": [],
+  "provenance": {
+    "producer": "TEST_FIXTURE WebKit mobile browser verification",
+    "source_scenario": "webkit-mobile-test"
+  },
+  "fidelity": {
+    "requested": "HIGH_FIDELITY",
+    "produced": "HIGH_FIDELITY",
+    "feature_disclosures": {
+      "surface_geometry": "MODELED",
+      "shared_films": "NOT_IMPLEMENTED",
+      "pressure": "NOT_IMPLEMENTED",
+      "film_thickness": "NOT_IMPLEMENTED"
+    }
+  }
+}

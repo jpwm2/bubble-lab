@@ -1,0 +1,33 @@
+{
+  "name": "bounded-four-region-t1-through-global-cfd",
+  "description": "Genuinely non-coplanar four-gas T1 with one authoritative Eulerian field before and after the adjacency switch.",
+  "t1_global_cfd": {
+    "cells": 12,
+    "extent_m": 0.010,
+    "support_radius_m": 0.0012,
+    "old_pair_gap_m": 0.00035,
+    "axis_cycle": 0,
+    "direct_amplitude_m_inv": 0.8,
+    "direct_y_saturation_m": 0.04,
+    "event_mobility_m_per_n_s": 0.02,
+    "pre_event_closing_speed_m_s": 0.02,
+    "pre_event_drift_speed_m_s": 0.015,
+    "post_event_opening_speed_m_s": 0.012,
+    "maximum_aggregate_traction_mismatch": 0.2,
+    "field": {
+      "pseudo_steps": 24,
+      "viscous_cfl": 0.08,
+      "constraint_relaxation": 0.82,
+      "minimum_gap_cells": 0.25,
+      "traction_offset_cells": 0.8,
+      "gradient_step_cells": 0.5,
+      "maximum_sphericity_error": 0.12,
+      "minimum_constraint_cells_per_front": 8
+    },
+    "direct": {
+      "plateau_border_core_radius_m": 0.01,
+      "hydrodynamic_segments": 24,
+      "volume_relative_tolerance": 1e-12
+    }
+  }
+}

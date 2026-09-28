@@ -1,0 +1,68 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "runtime-transient-floor-contact",
+  "random_seed": 20260918,
+  "requested_fidelity_tier": "MAXIMUM_REALISM",
+  "requested_solver": {
+    "backend": "transient",
+    "features": {
+      "boundary_geometry": true
+    }
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, 0.0, 0.0],
+    "ambient_density_kg_m3": 1.204,
+    "ambient_dynamic_viscosity_pa_s": 0.00001825,
+    "wind": {
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "description": "zero deterministic background flow"
+    },
+    "boundary_refs": [
+      "floor",
+      "obstacle-sphere"
+    ]
+  },
+  "initial_bubbles": [
+    {
+      "id": "bubble-1",
+      "volume_m3": 0.000004188790204786391,
+      "equivalent_radius_m": 0.01,
+      "centroid_m": [0.0, 0.0, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {
+        "effective_sheet_tension_n_m": 0.05
+      }
+    }
+  ],
+  "user_editable": {
+    "features": {},
+    "solid_boundaries": [
+      {
+        "id": "floor",
+        "type": "floor",
+        "point_m": [0.0, -0.009, 0.0],
+        "normal_outward": [0.0, 1.0, 0.0],
+        "wall_velocity_m_s": [0.0, 0.0, 0.0],
+        "wetting": {
+          "target_contact_angle_deg": 60.0,
+          "relaxation": 0.35,
+          "iterations": 2,
+          "contact_band_m": 0.004
+        }
+      },
+      {
+        "id": "obstacle-sphere",
+        "type": "sphere",
+        "center_m": [0.04, 0.0, 0.0],
+        "radius_m": 0.005,
+        "wall_velocity_m_s": [0.0, 0.0, 0.0]
+      }
+    ]
+  },
+  "metadata": {
+    "purpose": "canonical transient tracked-film SDF floor contact with modeled wetting and a referenced sphere obstacle",
+    "requirements": ["R17", "R31", "R33", "R36"]
+  }
+}

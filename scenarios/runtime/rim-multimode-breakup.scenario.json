@@ -1,0 +1,37 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "rim-multimode-breakup-v1",
+  "random_seed": 20260920,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {"backend": "rim-breakup-reduced", "version": "1.0.0"},
+  "user_editable": {
+    "rim_multimode_breakup": {
+      "model": "ASYMMETRIC_MULTIMODE_RIM_SLENDER_JET_V1",
+      "azimuthal_cells": 192,
+      "outer_radius_m": 1.0,
+      "initial_mean_hole_radius_m": 0.1,
+      "hole_asymmetry_fraction": 0.08,
+      "hole_asymmetry_mode": 2,
+      "film_thickness_m": 0.001,
+      "density_kg_m3": 1.0,
+      "dynamic_viscosity_pa_s": 0.00001,
+      "surface_tension_n_m": 0.0005,
+      "disturbance_modes": [7, 10],
+      "disturbance_amplitudes": [0.018, 0.026],
+      "disturbance_phases_rad": [0.25, 1.10],
+      "rim_drag_coefficient": 1.0,
+      "time_step_s": 0.0001,
+      "max_time_s": 0.6,
+      "ligament_amplitude_fraction": 0.10,
+      "detachment_neck_radius_ratio": 0.50,
+      "partition_neck_radius_ratio": 0.90
+    }
+  },
+  "runtime": {"continuation_dt_s": 0.01},
+  "metadata": {
+    "purpose": "bounded asymmetric thin-film hole with simultaneous multimode rim competition and conservative state-derived droplet detachment",
+    "requirements": ["R16", "R31", "R32", "R33"],
+    "claim_boundary": "one scaled asymmetric hole and simultaneous reduced rim modes; not unrestricted 3D multi-hole atomization or secondary breakup"
+  }
+}

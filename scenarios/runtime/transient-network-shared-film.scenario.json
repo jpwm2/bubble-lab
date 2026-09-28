@@ -1,0 +1,79 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "runtime-transient-network-shared-film",
+  "random_seed": 20260918,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "backend": "transient-network",
+    "features": {
+      "shared_films": true
+    }
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, 0.0, 0.0],
+    "ambient_density_kg_m3": 1.2041,
+    "ambient_dynamic_viscosity_pa_s": 0.00001825,
+    "ambient_pressure_pa": 101325.0
+  },
+  "initial_bubbles": [
+    {
+      "id": "bubble-a",
+      "volume_m3": 0.000004075006590197187,
+      "equivalent_radius_m": 0.009908621415286444,
+      "centroid_m": [-0.008184931484813607, 0.0, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {
+        "effective_sheet_tension_n_m": 0.05,
+        "tension_convention": "effective_collapsed_soap_film_sheet"
+      }
+    },
+    {
+      "id": "bubble-b",
+      "volume_m3": 0.000011301325170056731,
+      "equivalent_radius_m": 0.013921314789807817,
+      "centroid_m": [0.012766972442943577, 0.0, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {
+        "effective_sheet_tension_n_m": 0.05,
+        "tension_convention": "effective_collapsed_soap_film_sheet"
+      }
+    }
+  ],
+  "initial_film_regions": [
+    {
+      "id": "outer-a",
+      "kind": "OUTER",
+      "adjacent": ["bubble-a", "EXTERIOR"],
+      "surface_tension_n_m": 0.05
+    },
+    {
+      "id": "outer-b",
+      "kind": "OUTER",
+      "adjacent": ["bubble-b", "EXTERIOR"],
+      "surface_tension_n_m": 0.05
+    },
+    {
+      "id": "shared-ab",
+      "kind": "SHARED",
+      "adjacent": ["bubble-a", "bubble-b"],
+      "surface_tension_n_m": 0.05
+    }
+  ],
+  "initial_junctions": [],
+  "user_editable": {
+    "features": {
+      "shared_films": true
+    },
+    "transient_network": {
+      "initializer": "accepted-b05-unequal-pressure",
+      "dt_s": 0.0002,
+      "mobility_m_per_n_s": 0.01
+    }
+  },
+  "metadata": {
+    "purpose": "canonical transient shared-film network runtime integration"
+  }
+}

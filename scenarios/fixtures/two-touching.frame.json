@@ -1,0 +1,39 @@
+{
+  "contract_version":"1.0.0",
+  "kind":"FRAME",
+  "frame_id":"two-touching-0000",
+  "simulation_time_s":0.0,
+  "manifest":{
+    "contract_version":"1.0.0",
+    "units":{"system":"SI","length":"m","time":"s","mass":"kg","pressure":"Pa","temperature":"K","amount":"mol"},
+    "solver":{"backend":"fixture-generator","version":"1.0"},
+    "fidelity_tier":"HIGH_FIDELITY",
+    "feature_disclosures":{"surface_geometry":"MODELED","shared_films":"MODELED","pressure":"NOT_IMPLEMENTED","film_thickness":"NOT_IMPLEMENTED"},
+    "random_seed":202,
+    "provenance":{"producer":"bubble-state-contract fixture","source_scenario":null,"created_at":null,"tolerances":{}}
+  },
+  "environment":{"gravity_m_s2":[0.0,-9.80665,0.0],"ambient_density_kg_m3":1.204,"ambient_dynamic_viscosity_pa_s":0.00001825},
+  "bubbles":[
+    {"id":"bubble-a","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[-0.0008,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"ALIVE"},
+    {"id":"bubble-b","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[0.0008,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"ALIVE"}
+  ],
+  "surface_meshes":[{
+    "id":"mesh-shared","geometry_role":"SHARED_FILM","owner_bubble_ids":["bubble-a","bubble-b"],"region_labels":["fixture"],
+    "vertex_count":4,"face_count":4,
+    "vertices":{"storage":"INLINE","dtype":"float64","shape":[4,3],"values":[[0.0,0.001,0.0],[-0.0008,-0.0005,0.0007],[0.0008,-0.0005,0.0007],[0.0,-0.0005,-0.0009]]},
+    "faces":{"storage":"INLINE","dtype":"uint32","shape":[4,3],"values":[[0,1,2],[0,2,3],[0,3,1],[1,3,2]]}
+  }],
+  "film_regions":[
+    {"id":"film-a-exterior","kind":"OUTER","adjacent":["bubble-a","EXTERIOR"],"surface_tension_n_m":0.03},
+    {"id":"film-b-exterior","kind":"OUTER","adjacent":["bubble-b","EXTERIOR"],"surface_tension_n_m":0.03},
+    {"id":"film-ab","kind":"SHARED","adjacent":["bubble-a","bubble-b"],"mesh_id":"mesh-shared","surface_tension_n_m":0.03}
+  ],
+  "junctions":[],
+  "topology":{
+    "adjacency":[{"a":"bubble-a","b":"bubble-b","film_id":"film-ab"}],
+    "events":[
+      {"id":"event-contact","type":"CONTACT_BEGIN","time_s":0.0,"bubble_ids_before":["bubble-a","bubble-b"],"bubble_ids_after":["bubble-a","bubble-b"],"provenance":{"source":"TEST_FIXTURE","detail":"contract example only"}},
+      {"id":"event-film","type":"FILM_FORMED","time_s":0.0,"bubble_ids_before":["bubble-a","bubble-b"],"bubble_ids_after":["bubble-a","bubble-b"],"film_ids":["film-ab"],"provenance":{"source":"TEST_FIXTURE","detail":"contract example only"}}
+    ]
+  }
+}

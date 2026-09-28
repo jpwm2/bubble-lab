@@ -1,0 +1,55 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "runtime-transient-noslip-moving-floor",
+  "random_seed": 20260919,
+  "requested_fidelity_tier": "MAXIMUM_REALISM",
+  "requested_solver": {
+    "backend": "transient",
+    "features": {
+      "boundary_geometry": true,
+      "bulk_solid_wall_no_slip": true
+    }
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, 0.0, 0.0],
+    "ambient_density_kg_m3": 1.204,
+    "ambient_dynamic_viscosity_pa_s": 0.00001825,
+    "wind": {
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "description": "zero deterministic background flow"
+    },
+    "boundary_refs": [
+      "moving-floor"
+    ]
+  },
+  "initial_bubbles": [
+    {
+      "id": "bubble-1",
+      "volume_m3": 5.235987755982989e-7,
+      "equivalent_radius_m": 0.005,
+      "centroid_m": [0.0, 0.005, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {
+        "effective_sheet_tension_n_m": 0.05
+      }
+    }
+  ],
+  "user_editable": {
+    "features": {},
+    "solid_boundaries": [
+      {
+        "id": "moving-floor",
+        "type": "floor",
+        "point_m": [0.0, -0.02, 0.0],
+        "normal_outward": [0.0, 1.0, 0.0],
+        "wall_velocity_m_s": [0.08, 0.0, 0.0]
+      }
+    ]
+  },
+  "metadata": {
+    "purpose": "canonical runtime proof that an explicit bulk_solid_wall_no_slip request installs and measures the resolved Eulerian SDF wall field",
+    "requirements": ["R36"]
+  }
+}

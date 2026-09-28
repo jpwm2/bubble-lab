@@ -1,0 +1,35 @@
+{
+  "contract_version":"1.0.0",
+  "kind":"FRAME",
+  "frame_id":"three-plateau-0000",
+  "simulation_time_s":0.0,
+  "manifest":{
+    "contract_version":"1.0.0",
+    "units":{"system":"SI","length":"m","time":"s","mass":"kg","pressure":"Pa","temperature":"K","amount":"mol"},
+    "solver":{"backend":"fixture-generator","version":"1.0"},
+    "fidelity_tier":"HIGH_FIDELITY",
+    "feature_disclosures":{"surface_geometry":"MODELED","shared_films":"MODELED","plateau_junctions":"MODELED","plateau_angle":"MODELED","pressure":"NOT_IMPLEMENTED"},
+    "random_seed":303,
+    "provenance":{"producer":"bubble-state-contract fixture","source_scenario":null,"created_at":null,"tolerances":{}}
+  },
+  "environment":{"gravity_m_s2":[0.0,-9.80665,0.0],"ambient_density_kg_m3":1.204,"ambient_dynamic_viscosity_pa_s":0.00001825},
+  "bubbles":[
+    {"id":"bubble-a","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[-0.0008,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"ALIVE"},
+    {"id":"bubble-b","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[0.0008,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"ALIVE"},
+    {"id":"bubble-c","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[0.0,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"ALIVE"}
+  ],
+  "surface_meshes":[],
+  "film_regions":[
+    {"id":"film-ab","kind":"SHARED","adjacent":["bubble-a","bubble-b"],"surface_tension_n_m":0.03},
+    {"id":"film-bc","kind":"SHARED","adjacent":["bubble-b","bubble-c"],"surface_tension_n_m":0.03},
+    {"id":"film-ca","kind":"SHARED","adjacent":["bubble-c","bubble-a"],"surface_tension_n_m":0.03}
+  ],
+  "junctions":[{
+    "id":"junction-abc",
+    "incident_film_ids":["film-ab","film-bc","film-ca"],
+    "geometry":{"storage":"INLINE","dtype":"float64","shape":[2,3],"values":[[0.0,-0.001,0.0],[0.0,0.001,0.0]]},
+    "measured_angles_deg":[120.0,120.0,120.0],
+    "measurement_provenance":{"source":"TEST_FIXTURE","note":"illustrative contract value, not a solved benchmark"}
+  }],
+  "topology":{"adjacency":[{"a":"bubble-a","b":"bubble-b","film_id":"film-ab"},{"a":"bubble-b","b":"bubble-c","film_id":"film-bc"},{"a":"bubble-c","b":"bubble-a","film_id":"film-ca"}],"events":[]}
+}

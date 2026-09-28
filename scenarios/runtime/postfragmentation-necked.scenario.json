@@ -1,0 +1,55 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "postfragmentation-necked-supported-v1",
+  "random_seed": 20260918,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "backend": "fragmentation-topology",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, -9.81, 0.0],
+    "ambient_density_kg_m3": 1.204,
+    "ambient_dynamic_viscosity_pa_s": 0.0000181
+  },
+  "initial_bubbles": [
+    {
+      "id": "necked-parent-1",
+      "volume_m3": 5.108691359541063,
+      "equivalent_radius_m": 1.0684159236706698,
+      "centroid_m": [0.0, 0.0, 0.0],
+      "velocity_m_s": [0.35, -0.12, 0.08],
+      "status": "ALIVE",
+      "pressure_pa": null,
+      "temperature_k": 298.15,
+      "gas_amount_mol": 0.00000275,
+      "gas_species": "air",
+      "mass_kg": 8.4e-8
+    }
+  ],
+  "user_editable": {
+    "fragmentation": {
+      "event_time_s": 0.0125,
+      "surface_tension_n_m": 0.03,
+      "generator": {
+        "type": "NECKED_SURFACE_OF_REVOLUTION",
+        "half_length_m": 1.8,
+        "minor_radius_m": 1.0,
+        "neck_depth": 0.58,
+        "neck_width_m": 0.48,
+        "asymmetry": 0.1,
+        "axial_segments": 24,
+        "circum_segments": 36
+      }
+    },
+    "postfragmentation_relaxation": {
+      "output_cadence_s": 0.0001,
+      "grid_cells_per_axis": 6,
+      "grid_margin_fraction": 0.2
+    }
+  },
+  "metadata": {
+    "purpose": "production SPLIT cut/cap children continued through accepted short-time transient relaxation"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "contract_version":"1.0.0",
+  "kind":"SCENARIO",
+  "scenario_id":"single-bubble-editable",
+  "random_seed":505,
+  "requested_fidelity_tier":"HIGH_FIDELITY",
+  "requested_solver":null,
+  "environment":{"gravity_m_s2":[0.0,-9.80665,0.0],"ambient_density_kg_m3":1.204,"ambient_dynamic_viscosity_pa_s":0.00001825},
+  "initial_bubbles":[{"id":"bubble-a","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[0.0,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"ALIVE"}],
+  "user_editable":{"bubble_fields":["centroid_m","velocity_m_s","volume_m3"],"environment_fields":["gravity_m_s2"]},
+  "metadata":{"purpose":"deterministic contract/editor fixture; not a solved result"}
+}

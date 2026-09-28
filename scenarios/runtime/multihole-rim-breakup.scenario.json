@@ -1,0 +1,40 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "multihole-rim-breakup-v1",
+  "random_seed": 20260921,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {"backend": "rim-breakup-reduced", "version": "1.0.0"},
+  "user_editable": {
+    "multihole_rim_breakup": {
+      "model": "INTERACTING_MULTIHOLE_RIM_V1",
+      "azimuthal_cells": 192,
+      "outer_radius_m": 1.0,
+      "hole_center_distance_m": 0.40,
+      "initial_hole_radii_m": [0.075, 0.065],
+      "film_thickness_m": 0.001,
+      "density_kg_m3": 1.0,
+      "dynamic_viscosity_pa_s": 0.00001,
+      "surface_tension_n_m": 0.0005,
+      "hole_modes": [[7, 10], [8, 11]],
+      "hole_amplitudes": [[0.042, 0.030], [0.036, 0.027]],
+      "hole_phases_rad": [[0.25, 1.10], [0.70, 1.65]],
+      "interaction_range_m": 0.22,
+      "interaction_strength": 1.0,
+      "bridge_target_fraction": 0.44,
+      "bridge_sigma_rad": 0.40,
+      "exchange_limit_fraction": 0.08,
+      "time_step_s": 0.0002,
+      "max_time_s": 0.30,
+      "ligament_amplitude_fraction": 0.16,
+      "detachment_neck_radius_ratio": 0.50,
+      "partition_neck_radius_ratio": 0.90
+    }
+  },
+  "runtime": {"continuation_dt_s": 0.01},
+  "metadata": {
+    "purpose": "bounded two-hole thin-film state with gap-activated conservative rim interaction, simultaneous multimode growth and state-derived droplet detachment",
+    "requirements": ["R16", "R31", "R32", "R33"],
+    "claim_boundary": "two interacting reduced rims in one conservative thin-film state; not unrestricted 3D pinch-off, turbulent atomization, secondary aerodynamic breakup or universal spray CFD"
+  }
+}

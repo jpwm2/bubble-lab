@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "name": "many-bubble gas diffusion chain",
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "features": {
+      "shared_films": true,
+      "gas_diffusion": true,
+      "coarsening": true,
+      "dynamic_shared_films": false,
+      "t1": false,
+      "rupture": false,
+      "coalescence": false
+    }
+  },
+  "environment": {
+    "ambient_pressure_pa": 101325.0,
+    "gravity_m_s2": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "initial_bubbles": [
+    {
+      "id": "small",
+      "volume_m3": 1.4367550402417319e-09,
+      "equivalent_radius_m": 0.0007,
+      "temperature_k": 298.15,
+      "surface_tension_n_m": 0.03,
+      "velocity_m_s": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "medium",
+      "volume_m3": 4.188790204786391e-09,
+      "equivalent_radius_m": 0.001,
+      "temperature_k": 298.15,
+      "surface_tension_n_m": 0.03,
+      "velocity_m_s": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "large",
+      "volume_m3": 1.1494040321933855e-08,
+      "equivalent_radius_m": 0.0014,
+      "temperature_k": 298.15,
+      "surface_tension_n_m": 0.03,
+      "velocity_m_s": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "initial_film_regions": [
+    {
+      "id": "film-small-medium",
+      "kind": "SHARED",
+      "adjacent": [
+        "small",
+        "medium"
+      ],
+      "shared_area_m2": 1.2e-06,
+      "film_thickness_m": 8e-07
+    },
+    {
+      "id": "film-medium-large",
+      "kind": "SHARED",
+      "adjacent": [
+        "medium",
+        "large"
+      ],
+      "shared_area_m2": 1.4e-06,
+      "film_thickness_m": 8.5e-07
+    }
+  ],
+  "user_editable": {
+    "gas_diffusion": {
+      "enabled": true,
+      "dt_s": 0.025,
+      "steps_per_frame": 10,
+      "temperature_k": 298.15,
+      "surface_tension_n_m": 0.03,
+      "permeability_mol_m_per_m2_s_pa": 1e-11,
+      "positivity_safety": 0.45
+    }
+  }
+}

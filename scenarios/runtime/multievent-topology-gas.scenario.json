@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "name": "causal multi-event topology-changing gas network",
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "features": {
+      "shared_films": true,
+      "gas_diffusion": true,
+      "coarsening": true,
+      "t1": true,
+      "t1_topology_surgery": true,
+      "rupture": true,
+      "coalescence": true,
+      "vanishing_region_remap": false
+    }
+  },
+  "environment": {
+    "ambient_pressure_pa": 101325.0,
+    "gravity_m_s2": [0.0, 0.0, 0.0]
+  },
+  "user_editable": {
+    "multievent_topology_gas": {
+      "fixture": "accepted-causal-four-t1-plus-rupture-coalescence",
+      "enabled": true,
+      "dt_s": 0.05,
+      "steps_per_frame": 1,
+      "film_thickness_m": 8e-7,
+      "permeability_mol_m_per_m2_s_pa": 1e-8
+    }
+  }
+}

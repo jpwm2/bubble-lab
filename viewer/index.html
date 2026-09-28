@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07111f" />
+  <title>Bubble Lab Viewer</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div><p class="eyebrow">Bubble Lab / Contract v1</p><h1>Scientific bubble state inspector</h1></div>
+      <div class="header-actions"><span id="fidelity-badge" class="badge"></span><select id="fixture-select" aria-label="Canonical frame fixture"></select><label class="runtime-bundle-label"><span>Runtime bundle</span><input id="runtime-bundle-input" type="file" webkitdirectory multiple aria-label="Load generated replay bundle folder" /></label></div>
+    </header>
+    <main class="workspace">
+      <section class="viewport-card" aria-label="3D viewer">
+        <canvas id="viewport"></canvas>
+        <div class="viewport-overlay">
+          <div class="toolbar" role="toolbar" aria-label="Viewer controls">
+            <button id="inspector-toggle" aria-controls="inspector-panel" aria-expanded="false" hidden>Inspector</button>
+            <button id="mode-edit" class="active">Edit SCENARIO</button><button id="mode-replay">Replay FRAME</button>
+            <button id="replay-back">◀ Step</button><button id="replay-play">Play</button><button id="replay-forward">Step ▶</button><button id="replay-reset">Reset replay</button>
+            <button id="add-toggle">Add bubble</button><button id="delete-selected">Delete selected</button><button id="delete-all" class="danger">Delete all</button><button id="burst-request">Request burst</button>
+            <button id="focus-selected">Focus selected</button><button id="fit-all">Fit all</button>
+          </div>
+          <div id="add-hint" class="hint hidden">Tap/click the ground plane to edit the SCENARIO. The loaded FRAME remains untouched.</div>
+          <div class="legend"><span id="replay-position"></span><br />One finger: orbit · Two fingers: pinch + pan · Tap: select/place · Mouse drag: orbit</div>
+        </div>
+      </section>
+      <aside id="inspector-panel" class="inspector mobile-collapsed">
+        <section class="panel"><h2>Scenario / runtime</h2><div id="lab-config-panel"><p class="muted">Loading shared editable SCENARIO controls…</p></div></section>
+        <section class="panel"><h2>Live solver transport</h2><div id="live-session-panel"><p class="muted">Loading direct authoritative solver transport…</p></div></section>
+        <section class="panel"><h2>Offline solver handoff</h2><div id="session-control-panel"><p class="muted">Loading offline authoritative solver-session controls…</p></div></section>
+        <section class="panel"><h2>Selection / topology</h2><div id="selection-panel"></div></section>
+        <section class="panel"><h2>System / solver</h2><div id="system-panel"></div></section>
+        <section class="panel"><h2>Scientific field</h2><div id="debug-field-panel"></div></section>
+        <section class="panel"><h2>Optics / provenance</h2><div id="optics-panel"></div></section>
+        <section class="panel"><h2>Provenance / fidelity</h2><div id="provenance-panel"></div></section>
+        <section class="panel"><h2>Topology events</h2><div id="event-panel"></div></section>
+        <section class="panel">
+          <details class="debug-controls" open>
+            <summary>Display / debug controls</summary>
+            <div class="control-grid">
+              <label>Rendering performance<select id="quality-mode" aria-label="Rendering performance profile"><option value="AUTO">Auto</option><option value="QUALITY">Quality</option><option value="BATTERY">Battery / performance</option></select></label>
+              <label>Film visibility<select id="film-visibility"><option value="ALL">All films</option><option value="OUTER">Outer films only</option><option value="SHARED">Shared films only</option><option value="NONE">No films</option></select></label>
+              <label><input id="show-canonical" type="checkbox" checked /> Canonical meshes</label>
+              <label><input id="show-fallback" type="checkbox" checked /> Viewer sphere fallbacks</label>
+              <label><input id="show-faces" type="checkbox" checked /> Triangle faces</label>
+              <label><input id="wireframe" type="checkbox" /> Wireframe / edges</label>
+              <label><input id="show-vertices" type="checkbox" /> Vertices / nodes</label>
+              <label><input id="show-vertex-normals" type="checkbox" /> Vertex normals</label>
+              <label><input id="show-face-normals" type="checkbox" /> Face normals</label>
+              <label><input id="show-junctions" type="checkbox" checked /> Junctions / Plateau borders</label>
+            </div>
+            <h3>Scalar field explorer</h3>
+            <label>Scalar channel<select id="scalar-channel"><option value="none">None</option></select></label>
+            <div class="control-grid">
+              <label>Range<select id="scalar-range-mode"><option value="AUTO">Auto</option><option value="MANUAL">Manual</option></select></label>
+              <label><input id="scalar-diverging" type="checkbox" /> Diverging signed scale</label>
+              <label>Manual minimum<input id="scalar-min" type="number" step="any" disabled /></label>
+              <label>Manual maximum<input id="scalar-max" type="number" step="any" disabled /></label>
+            </div>
+            <h3>Vector field explorer</h3>
+            <label>Vector channel<select id="vector-channel"><option value="none">None</option></select></label>
+            <div class="control-grid">
+              <label>Max glyphs<input id="vector-glyph-count" type="number" min="1" max="2000" step="1" value="120" /></label>
+              <label>Glyph scale<input id="vector-scale" type="number" min="0" step="0.1" value="1" /></label>
+              <label><input id="vector-normalize" type="checkbox" checked /> Normalize vector direction</label>
+            </div>
+            <h3>Optical layer</h3>
+            <label>Thin-film interference<select id="interference-mode"><option value="AUTO">Physical/contract thickness when available</option><option value="OFF">Off — neutral Fresnel/transmission</option><option value="VISUAL_PREVIEW">VISUAL_ONLY preview</option></select></label>
+            <label>VISUAL_ONLY preview thickness (nm)<input id="preview-thickness-nm" type="number" min="0" max="5000" step="10" value="350" /></label>
+            <p class="muted">Scalar/vector overlays use canonical fields only when present. A manifest value of NOT_IMPLEMENTED blocks that quantity from physical display. Computed normals are labeled VIEWER_DERIVED and are geometry aids, never curvature, stress, traction, or force. Display subsampling never mutates canonical simulation state.</p>
+          </details>
+        </section>
+      </aside>
+    </main>
+    <footer id="status-line" aria-live="polite">Loading canonical contract fixtures…</footer>
+  </div>
+  <script type="module" src="./assets/main.js"></script>
+  <script type="module" src="./assets/labPanel.js"></script>
+  <script type="module" src="./assets/sessionPanel.js"></script>
+  <script type="module" src="./assets/liveSessionPanel.js"></script>
+</body>
+</html>

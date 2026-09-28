@@ -1,0 +1,39 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "runtime-checkpoint-transient",
+  "random_seed": 20260918,
+  "requested_fidelity_tier": "MAXIMUM_REALISM",
+  "requested_solver": {
+    "backend": "transient",
+    "features": {}
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, -9.81, 0.0],
+    "ambient_density_kg_m3": 1.204,
+    "ambient_dynamic_viscosity_pa_s": 0.00001825,
+    "wind": {
+      "velocity_m_s": [0.12, 0.02, 0.0],
+      "description": "uniform deterministic background flow for checkpoint restart qualification"
+    }
+  },
+  "initial_bubbles": [
+    {
+      "id": "bubble-1",
+      "volume_m3": 0.000004188790204786391,
+      "equivalent_radius_m": 0.01,
+      "centroid_m": [0.0, 0.0, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {
+        "effective_sheet_tension_n_m": 0.05
+      }
+    }
+  ],
+  "user_editable": {
+    "features": {}
+  },
+  "metadata": {
+    "purpose": "authoritative fresh-process transient checkpoint/restart qualification"
+  }
+}

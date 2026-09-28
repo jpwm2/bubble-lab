@@ -1,0 +1,108 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "runtime-two-bubble-diffusion",
+  "random_seed": 20260918,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "backend": "thinfilm",
+    "features": {
+      "shared_film_topology": true,
+      "gas_diffusion": true,
+      "coarsening": true
+    }
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, 0.0, 0.0],
+    "ambient_density_kg_m3": 1.204,
+    "ambient_dynamic_viscosity_pa_s": 0.00001825
+  },
+  "initial_bubbles": [
+    {
+      "id": "bubble-small",
+      "volume_m3": 9.047786842338604e-7,
+      "equivalent_radius_m": 0.006,
+      "centroid_m": [-0.006, 0.0, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "pressure_pa": null,
+      "temperature_k": 298.15,
+      "gas_amount_mol": 0.00004,
+      "gas_species": "air"
+    },
+    {
+      "id": "bubble-large",
+      "volume_m3": 0.000002144660584850632,
+      "equivalent_radius_m": 0.008,
+      "centroid_m": [0.008, 0.0, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "pressure_pa": null,
+      "temperature_k": 298.15,
+      "gas_amount_mol": 0.000075,
+      "gas_species": "air"
+    }
+  ],
+  "initial_surface_meshes": [
+    {
+      "id": "mesh-shared-film",
+      "geometry_role": "SHARED_FILM",
+      "owner_bubble_ids": ["bubble-small", "bubble-large"],
+      "region_labels": ["bubble-small", "bubble-large"],
+      "vertex_count": 4,
+      "face_count": 2,
+      "vertices": {
+        "storage": "INLINE",
+        "dtype": "float64",
+        "shape": [4, 3],
+        "values": [
+          0.0, -0.005, -0.005,
+          0.0, 0.005, -0.005,
+          0.0, 0.005, 0.005,
+          0.0, -0.005, 0.005
+        ]
+      },
+      "faces": {
+        "storage": "INLINE",
+        "dtype": "uint32",
+        "shape": [2, 3],
+        "values": [0, 1, 2, 0, 2, 3]
+      }
+    }
+  ],
+  "initial_film_regions": [
+    {
+      "id": "film-shared",
+      "kind": "SHARED",
+      "adjacent": ["bubble-small", "bubble-large"],
+      "mesh_id": "mesh-shared-film",
+      "surface_tension_n_m": 0.05
+    }
+  ],
+  "initial_junctions": [],
+  "user_editable": {
+    "features": {},
+    "runtime": {
+      "output_cadence_s": 0.05
+    },
+    "thinfilm": {
+      "initial_thickness_m": 0.000008,
+      "initial_surfactant_mol_m2": 0.000001,
+      "enable_drainage": false,
+      "enable_surfactant_diffusion": false,
+      "enable_gas_diffusion": true,
+      "dynamic_viscosity_pa_s": 0.001,
+      "liquid_density_kg_m3": 1000.0,
+      "surfactant_diffusivity_m2_s": 0.0,
+      "clean_surface_tension_n_m": 0.05,
+      "surface_elasticity_n_m_per_mol_m2": 2000.0,
+      "minimum_surface_tension_n_m": 0.02,
+      "positivity_safety": 0.45,
+      "max_substeps": 10000,
+      "gas_permeability_mol_m_per_m2_s_pa": 1e-11
+    }
+  },
+  "metadata": {
+    "purpose": "deterministic two-bubble pairwise gas diffusion on one fixed shared film"
+  }
+}

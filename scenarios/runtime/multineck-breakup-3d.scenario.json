@@ -1,0 +1,48 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "multineck-breakup-3d-v1",
+  "random_seed": 20260922,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "backend": "multineck-3d-reduced",
+    "version": "1.0.0"
+  },
+  "user_editable": {
+    "multineck_breakup_3d": {
+      "model": "INTERACTING_MULTINECK_3D_V1",
+      "density_kg_m3": 1000.0,
+      "dynamic_viscosity_pa_s": 0.001,
+      "surface_tension_n_m": 0.072,
+      "time_step_s": 0.00002,
+      "max_time_s": 0.018,
+      "detachment_radius_m": 0.00032,
+      "coupling_strength": 0.45,
+      "coupling_length_m": 0.005,
+      "capillary_factor": 0.18,
+      "viscous_factor": 4.0,
+      "initial_parent_volume_m3": 2e-08,
+      "neck_centers_m": [
+        [0.0, 0.0, 0.0],
+        [0.0032, 0.0025, 0.0018],
+        [-0.0027, 0.0034, -0.0015]
+      ],
+      "neck_axes": [
+        [1.0, 0.3, 0.2],
+        [-0.2, 0.9, 0.35],
+        [0.25, -0.1, 0.96]
+      ],
+      "initial_radii_m": [0.00115, 0.00128, 0.00138],
+      "initial_radial_velocities_m_s": [-0.025, -0.022, -0.02],
+      "lineage_root": "multineck-liquid-root"
+    }
+  },
+  "runtime": {
+    "continuation_dt_s": 0.002
+  },
+  "metadata": {
+    "purpose": "bounded non-coplanar 3D interacting multi-neck breakup with state-derived conservative sequential detachments",
+    "requirements": ["R16", "R31", "R32", "R33"],
+    "claim_boundary": "reduced coupled 3D neck class only; not unrestricted free-surface CFD, turbulent atomization, secondary breakup or universal spray physics"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://bubblelab.dev/contracts/v1/simulation-manifest.schema.json",
+  "title":"Bubble Lab SimulationManifest",
+  "type":"object",
+  "additionalProperties":true,
+  "required":["contract_version","units","solver","fidelity_tier","feature_disclosures","random_seed","provenance"],
+  "properties":{
+    "contract_version":{"const":"1.0.0"},
+    "units":{"type":"object","required":["system"],"properties":{"system":{"const":"SI"},"length":{"const":"m"},"time":{"const":"s"},"mass":{"const":"kg"},"pressure":{"const":"Pa"},"temperature":{"const":"K"},"amount":{"const":"mol"}},"additionalProperties":false},
+    "solver":{"type":"object","required":["backend","version"],"properties":{"backend":{"type":"string","minLength":1},"version":{"type":"string","minLength":1},"adapter":{"type":["string","null"]}},"additionalProperties":true},
+    "fidelity_tier":{"enum":["INTERACTIVE","HIGH_FIDELITY","MAXIMUM_REALISM"]},
+    "feature_disclosures":{"type":"object","additionalProperties":{"enum":["RESOLVED","MODELED","VISUAL_ONLY","NOT_IMPLEMENTED"]}},
+    "random_seed":{"type":"integer","minimum":0},
+    "provenance":{"type":"object","required":["producer"],"properties":{"producer":{"type":"string","minLength":1},"source_scenario":{"type":["string","null"]},"created_at":{"type":["string","null"]},"tolerances":{"type":"object","additionalProperties":{"type":"number"}}},"additionalProperties":true}
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "direct-3d-t1-hydrodynamics-transition",
+  "supported_class": "isolated-four-region-curvilinear-3d-overdamped-direct-traction",
+  "fixture": {
+    "mode": "twisted-saturation",
+    "resolution_m": 0.10,
+    "initial_gap_m": 0.05,
+    "half_extent_m": 1.0,
+    "depth_m": 0.60,
+    "sheet_tension_n_m": 1.0,
+    "amplitude_m_inv": 0.8,
+    "y_saturation_m": 0.04
+  },
+  "hydrodynamics": {
+    "plateau_border_core_radius_m": 0.01,
+    "mobility_m_per_n_s": 0.02,
+    "hydrodynamic_segments": 24,
+    "post_event_seed_factor": 1.25
+  },
+  "continuation": {
+    "steps": 2,
+    "dt_s": 0.00005,
+    "mobility_m_per_n_s": 0.005,
+    "volume_relative_tolerance": 2e-10
+  },
+  "claim_boundary": "Direct 3D event timing and topology for one isolated four-region curvilinear neighborhood with open local sheets and separate closed volume-support shells. The event-time predictor uses surface-tension traction measured on the current resolved 3D geometry with an overdamped frozen-traction local closure. This is not unrestricted arbitrary 3D T1, a resolved evolving liquid-border model, or singular liquid-border CFD."
+}

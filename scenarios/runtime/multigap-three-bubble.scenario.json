@@ -1,0 +1,63 @@
+{
+  "scenario_id": "multigap-three-bubble-global-cfd",
+  "description": "Bounded three-bubble collinear chain with two simultaneously resolved pre-contact gaps in one authoritative Eulerian field.",
+  "domain": {
+    "cells": 13,
+    "extent_m": 0.03,
+    "pressure_iterations": 100,
+    "pressure_tolerance_s_inv": 3e-6
+  },
+  "bubbles": {
+    "radius_m": 0.0022,
+    "left_gap_m": 0.0064,
+    "right_gap_m": 0.006,
+    "subdivisions": 1
+  },
+  "materials": {
+    "exterior": {
+      "density_kg_m3": 1.204,
+      "dynamic_viscosity_pa_s": 1.825e-5
+    },
+    "interior": {
+      "density_kg_m3": 1.05,
+      "dynamic_viscosity_pa_s": 1.65e-5
+    }
+  },
+  "coupling": {
+    "global_enabled": true,
+    "free_velocities_world_m_s": {
+      "bubble-a": [0.028, 0.0, 0.0],
+      "bubble-b": [0.002, 0.0, 0.0],
+      "bubble-c": [-0.03, 0.0, 0.0]
+    },
+    "outer_resistance_n_s_m": 8e-6,
+    "nominal_dt_s": 0.01,
+    "handoff_gap_cells": 1.8,
+    "max_steps": 32,
+    "global_field": {
+      "pseudo_steps": 8,
+      "viscous_cfl": 0.08,
+      "constraint_relaxation": 0.85,
+      "minimum_gap_cells": 1.5,
+      "traction_offset_cells": 0.8,
+      "gradient_step_cells": 0.5,
+      "maximum_sphericity_error": 0.12,
+      "minimum_constraint_cells_per_front": 8,
+      "feedback_iterations": 3,
+      "feedback_relaxation": 0.3,
+      "maximum_axis_offset_over_radius": 0.08
+    }
+  },
+  "claim_boundary": {
+    "supported": "Exactly three separated quasi-spherical bubbles in a collinear chain with two simultaneous resolved pre-contact gaps.",
+    "unsupported": [
+      "arbitrary bubble count or contact graph",
+      "overlapping immersed supports",
+      "contact or T1 topology change through this CFD path",
+      "turbulence",
+      "compressibility",
+      "thermal physics",
+      "rarefied-gas physics"
+    ]
+  }
+}

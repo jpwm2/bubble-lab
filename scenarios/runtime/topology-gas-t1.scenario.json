@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "name": "topology-changing gas transport through one T1",
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "features": {
+      "shared_films": true,
+      "gas_diffusion": true,
+      "coarsening": true,
+      "t1": true,
+      "t1_topology_surgery": true,
+      "rupture": false,
+      "coalescence": false,
+      "vanishing_region_remap": false
+    }
+  },
+  "environment": {
+    "ambient_pressure_pa": 101325.0,
+    "gravity_m_s2": [0.0, 0.0, 0.0]
+  },
+  "user_editable": {
+    "topology_gas_transport": {
+      "fixture": "accepted-four-region-extruded-t1",
+      "enabled": true,
+      "dt_s": 0.05,
+      "steps_per_frame": 2,
+      "t1_frame_index": 3,
+      "film_thickness_m": 8e-7,
+      "permeability_mol_m_per_m2_s_pa": 1e-8
+    }
+  }
+}

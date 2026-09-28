@@ -1,0 +1,13 @@
+{
+  "commands": [
+    {"command": "PAUSE"},
+    {"command": "STEP"},
+    {"command": "RESUME"},
+    {"command": "RUN_TO_TIME", "target_time_s": 0.001},
+    {"command": "RESET"},
+    {"command": "PAUSE"},
+    {"command": "STEP"},
+    {"command": "RESUME"},
+    {"command": "RUN_TO_TIME", "target_time_s": 0.001}
+  ]
+}

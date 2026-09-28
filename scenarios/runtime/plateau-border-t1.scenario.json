@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "name": "dynamic-plateau-border-t1-transition",
+  "supported_class": "isolated-four-region-curvilinear-3d-dynamic-liquid-border-reduced-order",
+  "fixture": {
+    "mode": "twisted-saturation",
+    "resolution_m": 0.10,
+    "initial_gap_m": 0.05,
+    "half_extent_m": 1.0,
+    "depth_m": 0.60,
+    "sheet_tension_n_m": 1.0,
+    "amplitude_m_inv": 0.8,
+    "y_saturation_m": 0.04
+  },
+  "liquid_border": {
+    "surface_tension_n_m": 1.0,
+    "liquid_viscosity_pa_s": 0.12,
+    "core_radius_m": 0.01,
+    "total_liquid_volume_m3": 0.000024,
+    "initial_core_volume_fraction": 0.50,
+    "redistribution_length_m": 0.05,
+    "redistribution_radius_m": 0.004,
+    "time_step_s": 0.0002,
+    "maximum_time_s": 3.0,
+    "post_event_seed_factor": 1.25
+  },
+  "continuation": {
+    "steps": 2,
+    "dt_s": 0.00005,
+    "mobility_m_per_n_s": 0.005,
+    "volume_relative_tolerance": 2e-10
+  },
+  "claim_boundary": "Bounded reduced-order liquid-border control-volume hydrodynamics for one isolated four-region curvilinear 3D T1 neighborhood. Liquid state, Young-Laplace pressure, Poiseuille redistribution and viscous resistance evolve in time and determine event timing; the surrounding-film traction is measured from the resolved mesh. This is not resolved singular multiphase Navier-Stokes or unrestricted arbitrary 3D T1 CFD."
+}

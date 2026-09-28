@@ -1,0 +1,283 @@
+"""Post-Wave-12 evidence overlay for the Bubble Lab completion catalog."""
+from __future__ import annotations
+
+from copy import deepcopy
+
+from .catalog import CATALOG as BASE_CATALOG, row
+
+
+CATALOG = deepcopy(BASE_CATALOG)
+CATALOG.update(
+    {
+        "R1": row(
+            "PARTIAL",
+            [
+                "bubblelab/docs/physics/PHYSICS_MODEL.md",
+                "bubblelab/solvers/transient/solver.py",
+                "bubblelab/runtime/transient_network_runtime.py",
+                "bubblelab/runtime/contact_thinfilm_event_runtime.py",
+                "tasks/bubble-live-session-transport/deliverable.json",
+                "tasks/bubble-fragmentation-production/deliverable.json",
+                "tasks/bubble-t1-production-foundation/deliverable.json",
+            ],
+            "The accepted system now includes physical equilibrium/transient solvers, canonical shared-film/Plateau runtime slices, contact-to-thin-film/event integration, supported-class fragmentation/T1 topology changes and live authoritative session transport. Maximum-realism coupling, arbitrary live creation and physical-device qualification are still incomplete.",
+            "Close or explicitly defer the remaining maximum-realism, live-edit and physical-device gaps without substituting visual behavior for physics.",
+            features={
+                "physical_solver_stack": "MODELED",
+                "exact_transient_release_qualification": "RESOLVED",
+                "integrated_topology_slices": "RESOLVED",
+                "live_authoritative_transport": "RESOLVED",
+                "maximum_realism_full_coupling": "NOT_IMPLEMENTED",
+                "visual_substitute_as_physics": "NOT_IMPLEMENTED",
+            },
+        ),
+        "R8": row(
+            "SATISFIED",
+            [
+                "bubblelab/solvers/equilibrium/shared_geometry.py",
+                "bubblelab/runtime/transient_network_runtime.py",
+                "bubblelab/runtime/contact_runtime.py",
+                "bubblelab/runtime/contact_thinfilm_event_runtime.py",
+                "tasks/bubble-transient-network-runtime-integration/deliverable.json",
+                "tasks/bubble-contact-runtime-integration/deliverable.json",
+            ],
+            "No baseline R8 completion gap remains for the accepted shared-film and contact topology classes. General simultaneous multi-contact and fully coupled multi-region CFD are higher-fidelity extensions, not evidence that the accepted common-film path is absent.",
+            "Retain deterministic shared-DOF geometry, pressure-difference curvature checks and explicit rejection of unsupported topology classes.",
+            benchmarks=["B04", "B05"],
+            features={
+                "shared_film_equilibrium": "RESOLVED",
+                "shared_film_transient_runtime": "RESOLVED",
+                "contact_formation_handoff": "RESOLVED",
+                "contact_to_thinfilm_handoff": "RESOLVED",
+            },
+        ),
+        "R9": row(
+            "SATISFIED",
+            [
+                "bubblelab/solvers/equilibrium/plateau.py",
+                "bubblelab/runtime/transient_network_runtime.py",
+                "bubblelab/scenarios/runtime/transient-network-plateau.scenario.json",
+                "tasks/bubble-transient-network-runtime-integration/deliverable.json",
+                "tasks/bubble-t1-production-foundation/deliverable.json",
+            ],
+            "The accepted equilibrium and transient-network paths provide Plateau force/angle diagnostics, persistent explicit junction geometry and deterministic dynamic continuation for the supported network class.",
+            "Keep the approximately-120-degree diagnostics and explicit topology/incidence records when extending toward general three-dimensional Plateau-border hydrodynamics.",
+            benchmarks=["B06"],
+            features={
+                "plateau_equilibrium": "RESOLVED",
+                "dynamic_multi_junction_runtime": "RESOLVED",
+                "supported_t1_transaction": "RESOLVED",
+            },
+        ),
+        "R10": row(
+            "PARTIAL",
+            [
+                "bubblelab/solvers/transient/solver.py",
+                "bubblelab/runtime/transient_network_runtime.py",
+                "bubblelab/runtime/contact_runtime.py",
+                "bubblelab/runtime/boundary_runtime.py",
+                "tasks/bubble-transient-network-runtime-integration/deliverable.json",
+            ],
+            "Accepted runtime slices demonstrate physically driven free deformation, wind/gravity forcing, contact deformation and wall interaction, but every requested forcing/contact/wall mechanism is not yet unified in one maximum-realism runtime.",
+            "Qualify the remaining forcing combinations only where the maximum-realism product claim requires them; retain current modeled/resolved distinctions.",
+            features={
+                "transient_free_deformation": "MODELED",
+                "network_forcing": "MODELED",
+                "contact_deformation": "MODELED",
+                "unified_maximum_realism_forcing": "NOT_IMPLEMENTED",
+            },
+        ),
+        "R13": row(
+            "PARTIAL",
+            [
+                "bubblelab/solvers/thinfilm/gas.py",
+                "bubblelab/runtime/thinfilm_runtime.py",
+                "bubblelab/runtime/contact_thinfilm_event_runtime.py",
+                "tasks/bubble-contact-thinfilm-event-integration/deliverable.json",
+            ],
+            "Pressure-driven gas transfer/coarsening is modeled and now participates in the accepted contact-created finite-thickness film path. It remains a supported pair/shared-film slice rather than a fully general transient many-bubble gas-diffusion network.",
+            "Extend gas transfer across the general authoritative network only if that higher-fidelity many-bubble coarsening mode is required.",
+            benchmarks=["B15"],
+            features={
+                "pairwise_gas_diffusion": "MODELED",
+                "contact_integrated_gas_transfer": "MODELED",
+                "general_transient_network_gas_diffusion": "NOT_IMPLEMENTED",
+            },
+        ),
+        "R14": row(
+            "SATISFIED",
+            [
+                "bubblelab/solvers/thinfilm/surface.py",
+                "bubblelab/runtime/thinfilm_runtime.py",
+                "bubblelab/runtime/contact_thinfilm_event_runtime.py",
+                "tasks/bubble-contact-thinfilm-event-integration/deliverable.json",
+            ],
+            "The accepted finite-thickness path evolves contact-film thickness with drainage/surfactant state and preserves the exact contact-created shared-film geometry and identities into that model. Fully coupled pre-contact lubrication is a separate higher-fidelity limitation.",
+            "Retain deterministic handoff, conservation diagnostics and explicit fidelity disclosure when extending the thin-film model.",
+            benchmarks=["B14", "B15"],
+            features={
+                "tracked_film_transport": "MODELED",
+                "contact_shared_film_transport": "MODELED",
+                "contact_to_thinfilm_identity_handoff": "RESOLVED",
+            },
+        ),
+        "R15": row(
+            "SATISFIED",
+            [
+                "bubblelab/runtime/contact_thinfilm_event_runtime.py",
+                "bubblelab/runtime/event_runtime.py",
+                "bubblelab/runtime/postcoalescence_runtime.py",
+                "tasks/bubble-contact-thinfilm-event-integration/deliverable.json",
+            ],
+            "The accepted canonical path forms a shared film, evolves finite thickness, reaches a solver-driven rupture criterion, conservatively coalesces and supports short post-merge relaxation. The reachability scenario is not an independent high-accuracy rupture-time qualification and does not resolve singular coalescence CFD.",
+            "Retain the current rupture-timing disclosure and conservation gates; add singular-event CFD only as a separately qualified maximum-realism capability.",
+            benchmarks=["B10", "B16"],
+            features={
+                "shared_film_before_coalescence": "RESOLVED",
+                "solver_driven_rupture_event": "MODELED",
+                "conservative_coalescence": "RESOLVED",
+                "post_coalescence_relaxation": "MODELED",
+            },
+        ),
+        "R16": row(
+            "PARTIAL",
+            [
+                "bubblelab/solvers/events/engine.py",
+                "bubblelab/runtime/event_runtime.py",
+                "bubblelab/runtime/fragmentation_runtime.py",
+                "bubblelab/runtime/postfragmentation_relaxation.py",
+                "tasks/bubble-fragmentation-production/deliverable.json",
+                "tasks/bubble-postfragmentation-relaxation/deliverable.json",
+            ],
+            "User-triggered/criterion rupture and a deterministic production split for the supported single-neck class are accepted, followed by short physical child relaxation. Singular pinch-off, retracting-rim dynamics and droplet/spray production remain unavailable.",
+            "Keep the supported-class split and relaxation path production-qualified while treating singular pinch-off/rim/spray physics as separate maximum-realism work.",
+            benchmarks=["B16"],
+            features={
+                "rupture_event": "MODELED",
+                "user_burst": "MODELED",
+                "production_fragmentation": "RESOLVED",
+                "post_fragmentation_relaxation": "MODELED",
+                "singular_pinchoff_cfd": "NOT_IMPLEMENTED",
+                "rim_droplet_physics": "NOT_IMPLEMENTED",
+            },
+        ),
+        "R19": row(
+            "SATISFIED",
+            [
+                "bubblelab/runtime/session_control.py",
+                "bubblelab/runtime/server/http.py",
+                "bubblelab/runtime/server/service.py",
+                "bubblelab/viewer/src/liveSession.ts",
+                "tasks/bubble-live-session-transport/deliverable.json",
+            ],
+            "Authoritative PAUSE/RESUME/STEP/RUN_TO_TIME/RESET and checkpoint semantics are now reachable from the viewer through a security-hardened loopback HTTP/JSON transport, while replay navigation remains separate from solver-session control.",
+            "Retain server-authoritative state, loopback/trusted-origin security boundaries and deterministic command semantics; unsolicited streaming is not required by R19.",
+            features={
+                "replay_time_control": "RESOLVED",
+                "authoritative_runtime_session_control": "RESOLVED",
+                "session_ui_command_staging": "RESOLVED",
+                "browser_live_solver_transport": "RESOLVED",
+            },
+        ),
+        "R27": row(
+            "PARTIAL",
+            [
+                "bubblelab/viewer/src/lab.ts",
+                "bubblelab/viewer/src/liveSessionPanel.ts",
+                "bubblelab/runtime/server/service.py",
+                "tasks/bubble-live-session-transport/deliverable.json",
+            ],
+            "Scenario-mode selection/add/delete/burst/move/resize and live authoritative time/session control exist, but arbitrary topology-changing bubble add/delete/move/resize during a running authoritative session is not implemented.",
+            "Add an authoritative live-edit command surface for bubble creation/deletion and state edits while preserving edit-vs-run semantics and deterministic provenance.",
+            features={
+                "scenario_direct_manipulation": "RESOLVED",
+                "live_session_control": "RESOLVED",
+                "live_runtime_bubble_editing": "NOT_IMPLEMENTED",
+            },
+        ),
+        "R30": row(
+            "PARTIAL",
+            [
+                "bubblelab/contracts/checkpoint.schema.json",
+                "bubblelab/runtime/checkpoint_runtime.py",
+                "bubblelab/scenarios/runtime/transient-network-shared-film.scenario.json",
+                "bubblelab/scenarios/runtime/contact-thinfilm-event-rupture.scenario.json",
+                "bubblelab/scenarios/runtime/fragmentation-necked.scenario.json",
+                "tasks/bubble-checkpoint-restart/deliverable.json",
+            ],
+            "Scenario persistence and exact same-build fresh-process checkpoint/restart are accepted, and the scenario library now includes network/contact/event/fragmentation cases. The requested reusable initial scenario family is still not complete for every many-bubble/high-fidelity combination.",
+            "Complete the reusable many-bubble/network scenario family as needed; do not claim cross-version checkpoint portability without separate evidence.",
+            features={
+                "scenario_persistence": "RESOLVED",
+                "same_build_checkpoint_restart": "RESOLVED",
+                "cross_version_checkpoint_portability": "NOT_IMPLEMENTED",
+                "complete_initial_scenario_set": "NOT_IMPLEMENTED",
+            },
+        ),
+        "R35": row(
+            "PARTIAL",
+            [
+                "bubblelab/viewer/src/lab.ts",
+                "bubblelab/solvers/transient/release_benchmarks.py",
+                "bubblelab/runtime/transient_network_runtime.py",
+                "bubblelab/runtime/contact_thinfilm_event_runtime.py",
+                "tasks/bubble-t1-production-foundation/deliverable.json",
+            ],
+            "Multiple fidelity/backend modes, exact transient release gates, canonical network/contact/event paths and supported topology transactions are accepted. A single maximum-realism path with fully coupled pre-contact lubrication, multi-region CFD, resolved no-slip wall flow, general 3D T1 and singular breakup physics is not implemented.",
+            "Keep lower-fidelity modes honest and qualify each maximum-realism extension independently before presenting it as integrated.",
+            features={
+                "multi_backend_fidelity": "MODELED",
+                "exact_transient_release_qualification": "RESOLVED",
+                "supported_topology_transactions": "RESOLVED",
+                "maximum_realism_integrated": "NOT_IMPLEMENTED",
+            },
+        ),
+        "R38": row(
+            "PARTIAL",
+            [
+                "bubblelab/runtime/transient_network_runtime.py",
+                "bubblelab/runtime/contact_runtime.py",
+                "bubblelab/runtime/contact_thinfilm_event_runtime.py",
+                "bubblelab/runtime/fragmentation_runtime.py",
+                "bubblelab/runtime/server/service.py",
+                "bubblelab/viewer/MOBILE_WEBKIT_VERIFICATION.md",
+                "tasks/bubble-t1-production-foundation/deliverable.json",
+            ],
+            "The integrated system now has canonical shared-film/Plateau runtime, physically observed contact formation, contact-to-thin-film rupture/coalescence, supported-class production fragmentation, supported-class T1, authoritative live session transport and exact validation gates. Final integrated acceptance is still blocked by arbitrary live bubble editing and physical iPhone Safari/native-hardware qualification; maximum-realism CFD/topology limitations remain explicit rather than hidden.",
+            "Add authoritative arbitrary-time live bubble creation/deletion/editing and archive physical iPhone Safari/device-GPU/native-multitouch evidence. Treat the remaining maximum-realism CFD/general-3D/singular-event items as explicit separate capability gaps unless independently implemented.",
+            benchmarks=["B03", "B07", "B08", "B12", "B14", "B15", "B16"],
+            features={
+                "multi_bubble_canonical_runtime": "RESOLVED",
+                "contact_thinfilm_event_chain": "RESOLVED",
+                "browser_live_solver_transport": "RESOLVED",
+                "production_fragmentation": "RESOLVED",
+                "supported_t1_transaction": "RESOLVED",
+                "arbitrary_live_runtime_creation": "NOT_IMPLEMENTED",
+                "physical_iphone_safari": "NOT_IMPLEMENTED",
+                "native_hardware_multitouch": "NOT_IMPLEMENTED",
+                "resolved_no_slip_wall_cfd": "NOT_IMPLEMENTED",
+                "fully_coupled_precontact_lubrication": "NOT_IMPLEMENTED",
+                "general_3d_t1": "NOT_IMPLEMENTED",
+                "singular_pinchoff_rim_spray": "NOT_IMPLEMENTED",
+            },
+        ),
+        "R39": row(
+            "PARTIAL",
+            [
+                "bubblelab/docs/physics/PHYSICS_MODEL.md",
+                "bubblelab/runtime/transient_network_runtime.py",
+                "bubblelab/runtime/contact_thinfilm_event_runtime.py",
+                "bubblelab/runtime/fragmentation_runtime.py",
+                "bubblelab/runtime/server/service.py",
+                "tasks/bubble-t1-production-foundation/deliverable.json",
+            ],
+            "Bubble Lab now contains a broad set of real physical models and deterministic topology/runtime integrations rather than a visual imitation. The ultimate laboratory statement remains incomplete while arbitrary live construction, physical-device qualification and declared maximum-realism physics gaps remain open.",
+            "Close the measured R38 live-edit/device blockers and preserve all remaining fidelity disclosures until separately qualified.",
+            features={
+                "physical_laboratory_direction": "MODELED",
+                "integrated_physics_runtime": "RESOLVED",
+                "complete_physical_laboratory": "NOT_IMPLEMENTED",
+            },
+        ),
+    }
+)

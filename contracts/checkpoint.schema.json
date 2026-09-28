@@ -1,0 +1,9 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://bubblelab.dev/contracts/v1/checkpoint.schema.json",
+  "title":"Bubble Lab Checkpoint",
+  "allOf":[
+    {"$ref":"frame.schema.json"},
+    {"type":"object","properties":{"kind":{"const":"CHECKPOINT"}},"required":["checkpoint_state"]}
+  ]
+}

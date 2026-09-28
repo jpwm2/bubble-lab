@@ -1,0 +1,62 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "runtime-checkpoint-thinfilm",
+  "random_seed": 20260918,
+  "requested_fidelity_tier": "MAXIMUM_REALISM",
+  "requested_solver": {
+    "backend": "transient",
+    "features": {
+      "drainage": true,
+      "surfactant_diffusion": true,
+      "variable_surface_tension": true
+    }
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, -9.81, 0.0],
+    "ambient_density_kg_m3": 1.204,
+    "ambient_dynamic_viscosity_pa_s": 0.00001825,
+    "wind": {
+      "velocity_m_s": [0.08, 0.015, 0.0],
+      "description": "uniform deterministic background flow for thin-film checkpoint qualification"
+    }
+  },
+  "initial_bubbles": [
+    {
+      "id": "bubble-thinfilm",
+      "volume_m3": 0.000004188790204786391,
+      "equivalent_radius_m": 0.01,
+      "centroid_m": [0.0, 0.0, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {
+        "effective_sheet_tension_n_m": 0.05
+      }
+    }
+  ],
+  "user_editable": {
+    "features": {},
+    "runtime": {
+      "output_cadence_s": 0.0005
+    },
+    "thinfilm": {
+      "initial_thickness_m": 0.000008,
+      "initial_surfactant_mol_m2": 0.000002,
+      "enable_drainage": true,
+      "enable_surfactant_diffusion": true,
+      "enable_gas_diffusion": false,
+      "dynamic_viscosity_pa_s": 0.001,
+      "liquid_density_kg_m3": 1000.0,
+      "surfactant_diffusivity_m2_s": 2e-8,
+      "clean_surface_tension_n_m": 0.05,
+      "surface_elasticity_n_m_per_mol_m2": 2000.0,
+      "minimum_surface_tension_n_m": 0.02,
+      "disjoining_coefficient_pa_m3": 0.0,
+      "positivity_safety": 0.45,
+      "max_substeps": 10000
+    }
+  },
+  "metadata": {
+    "purpose": "authoritative fresh-process transient plus thin-film checkpoint/restart qualification"
+  }
+}

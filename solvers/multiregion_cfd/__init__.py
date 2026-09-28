@@ -1,0 +1,12 @@
+"""Supported global immersed multi-region CFD foundations."""
+from .core import GlobalCoupledResponse, GlobalFieldResult, MultiregionCFDSettings, SurfaceTraction
+from .balanced import coupled_global_response, solve_global_precontact_field
+from .fixtures import build_supported_three_bubble_solver, build_supported_two_bubble_solver
+from .liquid_border_global import LiquidBorderGlobalCFDResult, LiquidBorderGlobalCFDSettings, run_liquid_border_global_cfd_transition
+from .manycontact_t1 import ManyContactT1GlobalCFDSettings, ManyContactT1GlobalTransitionResult, run_manycontact_t1_global_cfd_transition, solve_manycontact_shared_field
+from .manycontact_t1_fixtures import build_supported_manycontact_t1_solver
+from .multigap import ManyBubbleCoupledResponse, ManyBubbleFieldResult, MultigapCFDSettings, coupled_multigap_response, solve_multigap_precontact_field
+from .t1 import SharedSupportDiagnostics, T1GlobalCFDSettings, T1GlobalTransitionResult, T1SharedFieldResult, run_t1_global_cfd_transition, solve_t1_shared_field
+from .t1_strong import StrongT1GlobalCFDSettings, StrongT1GlobalTransitionResult, run_strongly_coupled_t1_global_cfd_transition
+from .t1_fixtures import build_supported_four_region_t1_solver
+__all__=["GlobalCoupledResponse","GlobalFieldResult","LiquidBorderGlobalCFDResult","LiquidBorderGlobalCFDSettings","ManyBubbleCoupledResponse","ManyBubbleFieldResult","ManyContactT1GlobalCFDSettings","ManyContactT1GlobalTransitionResult","MultigapCFDSettings","MultiregionCFDSettings","SharedSupportDiagnostics","StrongT1GlobalCFDSettings","StrongT1GlobalTransitionResult","SurfaceTraction","T1GlobalCFDSettings","T1GlobalTransitionResult","T1SharedFieldResult","build_supported_four_region_t1_solver","build_supported_manycontact_t1_solver","build_supported_three_bubble_solver","build_supported_two_bubble_solver","coupled_global_response","coupled_multigap_response","run_liquid_border_global_cfd_transition","run_manycontact_t1_global_cfd_transition","run_strongly_coupled_t1_global_cfd_transition","run_t1_global_cfd_transition","solve_global_precontact_field","solve_manycontact_shared_field","solve_multigap_precontact_field","solve_t1_shared_field"]

@@ -1,0 +1,105 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "runtime-equilibrium-plateau-three",
+  "random_seed": 20260918,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "backend": "equilibrium",
+    "features": {
+      "shared_films": true,
+      "plateau_junctions": true
+    }
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, 0.0, 0.0],
+    "ambient_density_kg_m3": 1.2041,
+    "ambient_dynamic_viscosity_pa_s": 0.00001825,
+    "ambient_pressure_pa": 101325.0
+  },
+  "initial_bubbles": [
+    {
+      "id": "bubble-a",
+      "volume_m3": 2.133333333333326e-08,
+      "equivalent_radius_m": 0.0017205080276561978,
+      "centroid_m": [-0.020000000000000028, 0.020000000000000046, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {"effective_sheet_tension_n_m": 0.05}
+    },
+    {
+      "id": "bubble-b",
+      "volume_m3": 2.1333333333333273e-08,
+      "equivalent_radius_m": 0.0017205080276561982,
+      "centroid_m": [0.02000000000000006, 0.02000000000000008, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {"effective_sheet_tension_n_m": 0.05}
+    },
+    {
+      "id": "bubble-c",
+      "volume_m3": 2.133333333333334e-08,
+      "equivalent_radius_m": 0.0017205080276562,
+      "centroid_m": [0.0, -0.023999999999999983, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {"effective_sheet_tension_n_m": 0.05}
+    }
+  ],
+  "initial_film_regions": [
+    {
+      "id": "film-ab",
+      "kind": "SHARED",
+      "adjacent": ["bubble-a", "bubble-b"],
+      "surface_tension_n_m": 0.05
+    },
+    {
+      "id": "film-bc",
+      "kind": "SHARED",
+      "adjacent": ["bubble-b", "bubble-c"],
+      "surface_tension_n_m": 0.05
+    },
+    {
+      "id": "film-ca",
+      "kind": "SHARED",
+      "adjacent": ["bubble-c", "bubble-a"],
+      "surface_tension_n_m": 0.05
+    },
+    {
+      "id": "outer-a",
+      "kind": "OUTER",
+      "adjacent": ["bubble-a", "EXTERIOR"],
+      "surface_tension_n_m": 0.05
+    },
+    {
+      "id": "outer-b",
+      "kind": "OUTER",
+      "adjacent": ["bubble-b", "EXTERIOR"],
+      "surface_tension_n_m": 0.05
+    },
+    {
+      "id": "outer-c",
+      "kind": "OUTER",
+      "adjacent": ["bubble-c", "EXTERIOR"],
+      "surface_tension_n_m": 0.05
+    }
+  ],
+  "initial_junctions": [
+    {
+      "id": "plateau-junction-0",
+      "incident_film_ids": ["film-ab", "film-bc", "film-ca"]
+    }
+  ],
+  "user_editable": {
+    "features": {
+      "shared_films": true,
+      "plateau_junctions": true
+    },
+    "equilibrium_network": {
+      "initializer": "accepted-b06-plateau-three"
+    }
+  },
+  "metadata": {
+    "purpose": "canonical runtime integration of accepted B06 Plateau equilibrium"
+  }
+}

@@ -1,0 +1,17 @@
+import { cp, mkdir, readdir, rm } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+const here = dirname(fileURLToPath(import.meta.url)), root = join(here, ".."), dist = join(root, "dist"), canonicalFixtures = join(root, "..", "scenarios", "fixtures");
+const fixtureNames = ["single-isolated.frame.json", "two-touching.frame.json", "three-plateau.frame.json", "rupture-coalescence-history.frame.json", "single-editable.scenario.json"];
+await rm(dist, { recursive: true, force: true });
+await mkdir(join(dist, "assets"), { recursive: true });
+await mkdir(join(dist, "vendor", "addons", "environments"), { recursive: true });
+await mkdir(join(dist, "fixtures"), { recursive: true });
+await cp(join(root, "index.html"), join(dist, "index.html"));
+await cp(join(root, "src", "styles.css"), join(dist, "assets", "styles.css"));
+await cp(join(root, "node_modules", "three", "build", "three.module.js"), join(dist, "vendor", "three.module.js"));
+await cp(join(root, "node_modules", "three", "build", "three.core.js"), join(dist, "vendor", "three.core.js"));
+await cp(join(root, "node_modules", "three", "examples", "jsm", "environments", "RoomEnvironment.js"), join(dist, "vendor", "addons", "environments", "RoomEnvironment.js"));
+for (const entry of await readdir(join(root, ".build", "src"))) if (entry.endsWith(".js")) await cp(join(root, ".build", "src", entry), join(dist, "assets", entry));
+for (const fixtureName of fixtureNames) await cp(join(canonicalFixtures, fixtureName), join(dist, "fixtures", fixtureName));
+console.log("Built contract-v1 viewer in dist/");

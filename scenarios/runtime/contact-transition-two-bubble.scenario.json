@@ -1,0 +1,82 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "contact-transition-two-bubble",
+  "random_seed": 29,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "backend": "contact-transition",
+    "features": {
+      "film_sheet_geometry": true,
+      "bulk_incompressible_flow": true,
+      "automatic_contact_detection": true,
+      "transient_contact_detection": true,
+      "topology_change": true,
+      "shared_films": true,
+      "shared_film_topology": true,
+      "dynamic_shared_films": true
+    }
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, 0.0, 0.0],
+    "ambient_density_kg_m3": 1.204,
+    "ambient_dynamic_viscosity_pa_s": 0.00001825,
+    "ambient_pressure_pa": 101325.0,
+    "wind": {
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "description": "Zero mean flow; the accepted transient bulk is initialized with a deterministic periodic divergence-free contact strain."
+    }
+  },
+  "initial_bubbles": [
+    {
+      "id": "bubble-a",
+      "volume_m3": 0.000004188790204786391,
+      "equivalent_radius_m": 0.01,
+      "centroid_m": [0.0, 0.0, -0.01069],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {
+        "effective_sheet_tension_n_m": 0.05
+      }
+    },
+    {
+      "id": "bubble-b",
+      "volume_m3": 0.000004188790204786391,
+      "equivalent_radius_m": 0.01,
+      "centroid_m": [0.0, 0.0, 0.01069],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "film_material": {
+        "effective_sheet_tension_n_m": 0.05
+      }
+    }
+  ],
+  "user_editable": {
+    "contact_runtime": {
+      "subdivisions": 2,
+      "max_dt_s": 0.0005,
+      "grid": {
+        "cells": [10, 10, 10],
+        "origin_m": [-0.03, -0.03, -0.03],
+        "extent_m": [0.06, 0.06, 0.06],
+        "pressure_iterations": 160
+      },
+      "initial_flow": {
+        "model": "periodic_divergence_free_contact_strain_z",
+        "amplitude_m_s": 0.2
+      },
+      "contact": {
+        "threshold_edge_fraction": 0.45,
+        "max_interpenetration_edge_fraction": 0.35
+      },
+      "network": {
+        "dt_s": 0.0002,
+        "mobility_m_per_n_s": 0.02,
+        "max_displacement_edge_fraction": 0.025
+      }
+    }
+  },
+  "metadata": {
+    "description": "Supported two-bubble physical transient approach, mesh-observed contact formation, local shared-film surgery, and shared-DOF network continuation."
+  }
+}

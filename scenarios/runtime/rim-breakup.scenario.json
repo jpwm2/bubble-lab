@@ -1,0 +1,33 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "rim-breakup-thin-film-v1",
+  "random_seed": 20260920,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {"backend": "rim-breakup-reduced", "version": "1.0.0"},
+  "user_editable": {
+    "rim_breakup": {
+      "model": "EXPANDING_TOROIDAL_RIM_SLENDER_JET_V1",
+      "azimuthal_cells": 160,
+      "outer_radius_m": 1.0,
+      "initial_hole_radius_m": 0.1,
+      "film_thickness_m": 0.001,
+      "density_kg_m3": 1.0,
+      "dynamic_viscosity_pa_s": 0.00001,
+      "surface_tension_n_m": 0.0005,
+      "azimuthal_mode": 10,
+      "initial_radius_perturbation_fraction": 0.03,
+      "rim_drag_coefficient": 1.0,
+      "time_step_s": 0.0001,
+      "max_time_s": 0.5,
+      "ligament_amplitude_fraction": 0.10,
+      "detachment_neck_radius_ratio": 0.50
+    }
+  },
+  "runtime": {"continuation_dt_s": 0.01},
+  "metadata": {
+    "purpose": "bounded circular thin-film rupture with evolved rim instability and droplet detachment",
+    "requirements": ["R16", "R31", "R32", "R33"],
+    "claim_boundary": "one circular hole and one resolved azimuthal mode; not general 3D multi-hole spray atomization"
+  }
+}

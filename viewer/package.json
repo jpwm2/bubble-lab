@@ -1,0 +1,29 @@
+{
+  "name": "bubblelab-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsc && node --test test/*.test.mjs",
+    "test:contract": "tsc && node --test test/contract.test.mjs",
+    "test:debug": "tsc && node --test test/debug.test.mjs",
+    "test:optics": "tsc && node --test test/optics.test.mjs",
+    "test:lab-ui": "tsc && node --test test/lab-ui.test.mjs test/lab-integration.test.mjs",
+    "test:session-ui": "tsc && node --test test/session-ui.test.mjs",
+    "test:live-session-transport": "tsc && node --test test/live-session-transport.test.mjs",
+    "test:live-runtime-editing": "tsc && node --test test/live-runtime-editing.test.mjs",
+    "test:boundary-ui": "tsc && node --test test/boundary-ui.test.mjs",
+    "build": "tsc && node scripts/build.mjs",
+    "test:runtime-bundle": "tsc && node --test test/runtime-bundle.test.mjs",
+    "test:mobile": "tsc && node --test test/mobile.test.mjs",
+    "test:webkit-mobile": "npm run build && playwright install --with-deps webkit && node test/webkit-mobile-engine.mjs"
+  },
+  "dependencies": {
+    "three": "0.186.0"
+  },
+  "devDependencies": {
+    "playwright": "1.55.0",
+    "typescript": "5.9.2"
+  }
+}

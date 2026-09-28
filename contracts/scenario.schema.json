@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://bubblelab.dev/contracts/v1/scenario.schema.json",
+  "title":"Bubble Lab Scenario",
+  "type":"object",
+  "additionalProperties":true,
+  "required":["contract_version","kind","scenario_id","random_seed","requested_fidelity_tier","environment","initial_bubbles","user_editable"],
+  "properties":{
+    "contract_version":{"const":"1.0.0"},
+    "kind":{"const":"SCENARIO"},
+    "scenario_id":{"type":"string","minLength":1},
+    "random_seed":{"type":"integer","minimum":0},
+    "requested_fidelity_tier":{"enum":["INTERACTIVE","HIGH_FIDELITY","MAXIMUM_REALISM"]},
+    "requested_solver":{"type":["object","null"],"additionalProperties":true},
+    "environment":{"$ref":"frame.schema.json#/$defs/environment"},
+    "initial_bubbles":{"type":"array","items":{"$ref":"frame.schema.json#/$defs/bubble"}},
+    "initial_surface_meshes":{"type":"array","items":{"$ref":"frame.schema.json#/$defs/surfaceMesh"}},
+    "initial_film_regions":{"type":"array","items":{"$ref":"frame.schema.json#/$defs/filmRegion"}},
+    "initial_junctions":{"type":"array","items":{"$ref":"frame.schema.json#/$defs/junction"}},
+    "user_editable":{"type":"object","description":"User-editable initial conditions. Solvers interpret only documented keys."},
+    "metadata":{"type":"object"}
+  }
+}

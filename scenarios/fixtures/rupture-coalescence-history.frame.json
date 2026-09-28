@@ -1,0 +1,37 @@
+{
+  "contract_version":"1.0.0",
+  "kind":"FRAME",
+  "frame_id":"rupture-coalescence-0020",
+  "simulation_time_s":0.2,
+  "manifest":{
+    "contract_version":"1.0.0",
+    "units":{"system":"SI","length":"m","time":"s","mass":"kg","pressure":"Pa","temperature":"K","amount":"mol"},
+    "solver":{"backend":"fixture-generator","version":"1.0"},
+    "fidelity_tier":"HIGH_FIDELITY",
+    "feature_disclosures":{"surface_geometry":"MODELED","shared_films":"MODELED","coalescence":"MODELED","rupture":"MODELED","pressure":"NOT_IMPLEMENTED"},
+    "random_seed":404,
+    "provenance":{"producer":"bubble-state-contract fixture","source_scenario":null,"created_at":null,"tolerances":{}}
+  },
+  "environment":{"gravity_m_s2":[0.0,-9.80665,0.0],"ambient_density_kg_m3":1.204,"ambient_dynamic_viscosity_pa_s":0.00001825},
+  "bubbles":[
+    {"id":"bubble-a","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[-0.001,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"MERGED"},
+    {"id":"bubble-b","volume_m3":4.188790204786391e-9,"equivalent_radius_m":0.001,"centroid_m":[0.001,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"MERGED"},
+    {"id":"bubble-ab","volume_m3":8.377580409572782e-9,"equivalent_radius_m":0.0012599210498948732,"centroid_m":[0.0,0.0,0.0],"velocity_m_s":[0.0,0.0,0.0],"status":"RUPTURED"}
+  ],
+  "surface_meshes":[{
+    "id":"mesh-ab","geometry_role":"OUTER_FILM","owner_bubble_ids":["bubble-ab"],"region_labels":["production-style-reference"],
+    "vertex_count":100000,"face_count":199996,
+    "vertices":{"storage":"SIDECAR","dtype":"float32","shape":[100000,3],"uri":"arrays/example.vertices.f32","byte_offset":0,"encoding":"raw"},
+    "faces":{"storage":"SIDECAR","dtype":"uint32","shape":[199996,3],"uri":"arrays/example.faces.u32","byte_offset":0,"encoding":"raw"}
+  }],
+  "film_regions":[],
+  "junctions":[],
+  "topology":{
+    "adjacency":[],
+    "events":[
+      {"id":"event-contact","type":"CONTACT_BEGIN","time_s":0.02,"bubble_ids_before":["bubble-a","bubble-b"],"bubble_ids_after":["bubble-a","bubble-b"],"provenance":{"source":"TEST_FIXTURE"}},
+      {"id":"event-coalesce","type":"COALESCENCE","time_s":0.10,"bubble_ids_before":["bubble-a","bubble-b"],"bubble_ids_after":["bubble-ab"],"provenance":{"source":"TEST_FIXTURE","detail":"IDs explain merge; values are illustrative"}},
+      {"id":"event-rupture","type":"RUPTURE","time_s":0.20,"bubble_ids_before":["bubble-ab"],"bubble_ids_after":[],"provenance":{"source":"TEST_FIXTURE","detail":"user/solver cause intentionally unspecified"}}
+    ]
+  }
+}

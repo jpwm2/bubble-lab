@@ -1,0 +1,68 @@
+{
+  "contract_version": "1.0.0",
+  "kind": "SCENARIO",
+  "scenario_id": "pinchoff-necked-axisymmetric-v1",
+  "random_seed": 20260919,
+  "requested_fidelity_tier": "HIGH_FIDELITY",
+  "requested_solver": {
+    "backend": "fragmentation-topology",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "gravity_m_s2": [0.0, -9.81, 0.0],
+    "ambient_density_kg_m3": 1.204,
+    "ambient_dynamic_viscosity_pa_s": 0.0000181
+  },
+  "initial_bubbles": [
+    {
+      "id": "pinchoff-parent-1",
+      "volume_m3": 6.808147453841165,
+      "equivalent_radius_m": 1.1757458324100822,
+      "centroid_m": [0.0, 0.0, 0.0],
+      "velocity_m_s": [0.0, 0.0, 0.0],
+      "status": "ALIVE",
+      "pressure_pa": null,
+      "temperature_k": 298.15,
+      "gas_amount_mol": 0.0000032,
+      "gas_species": "air",
+      "mass_kg": 1.0
+    }
+  ],
+  "user_editable": {
+    "fragmentation": {
+      "surface_tension_n_m": 1.0,
+      "generator": {
+        "type": "NECKED_SURFACE_OF_REVOLUTION",
+        "half_length_m": 3.0,
+        "minor_radius_m": 1.0,
+        "neck_depth": 0.75,
+        "neck_width_m": 1.0,
+        "asymmetry": 0.0,
+        "axial_segments": 64,
+        "circum_segments": 72
+      }
+    },
+    "pinchoff": {
+      "model": "AXISYMMETRIC_SLENDER_NECK_V1",
+      "cell_count": 65,
+      "patch_half_length_m": 1.5,
+      "parent_half_length_m": 3.0,
+      "base_radius_m": 1.0,
+      "neck_depth": 0.75,
+      "neck_width_m": 1.0,
+      "density_kg_m3": 1.0,
+      "dynamic_viscosity_pa_s": 0.1,
+      "surface_tension_n_m": 1.0,
+      "resolution_stop_radius_cells": 1.6,
+      "max_time_s": 4.0
+    },
+    "postfragmentation_relaxation": {
+      "grid_cells_per_axis": 8,
+      "grid_margin_fraction": 0.25
+    }
+  },
+  "metadata": {
+    "purpose": "supported single-axisymmetric-neck hydrodynamic pinch-off to deterministic split handoff",
+    "claim_boundary": "slender-neck foundation only; retracting rim, ligaments, droplets and spray are outside this scenario"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "scenario_id": "multiregion-cfd-two-bubble-global-precontact",
+  "domain": {
+    "cells": 12,
+    "extent_m": 0.024,
+    "pressure_iterations": 100,
+    "pressure_tolerance_s_inv": 3e-06
+  },
+  "bubbles": {
+    "radius_m": 0.003,
+    "initial_gap_m": 0.005,
+    "subdivisions": 1
+  },
+  "materials": {
+    "exterior": {
+      "density_kg_m3": 1.204,
+      "dynamic_viscosity_pa_s": 1.825e-05
+    },
+    "interior": {
+      "density_kg_m3": 1.05,
+      "dynamic_viscosity_pa_s": 1.65e-05
+    }
+  },
+  "coupling": {
+    "global_enabled": true,
+    "free_closing_speed_m_s": 0.05,
+    "outer_resistance_n_s_m": 1.5e-06,
+    "nominal_dt_s": 0.02,
+    "global_handoff_gap_cells": 1.75,
+    "contact_gap_m": 0.0001,
+    "max_steps": 32,
+    "global_field": {
+      "pseudo_steps": 16,
+      "viscous_cfl": 0.08,
+      "constraint_relaxation": 0.85,
+      "minimum_gap_cells": 1.2,
+      "traction_offset_cells": 0.8,
+      "gradient_step_cells": 0.5,
+      "maximum_sphericity_error": 0.12,
+      "minimum_constraint_cells_per_front": 8
+    },
+    "local_handoff": {
+      "minimum_gap_m": 1e-07,
+      "radial_cells": 24,
+      "gap_cells": 8,
+      "radial_extent_over_sqrt_2rh": 60.0,
+      "radial_stretch": 5.0,
+      "volume_relative_tolerance": 5e-12
+    }
+  }
+}
