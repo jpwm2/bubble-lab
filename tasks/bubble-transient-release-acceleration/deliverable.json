@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-transient-release-acceleration/deliverable.json",
+  "source_sha256": "12c01fb2213bcb00cfeb0edec1b64f48ee3d438b0694080d4663d041c304f8d7",
+  "status": "DELIVERED",
+  "task_id": "bubble-transient-release-acceleration",
+  "validation": [{"name":"acceleration-equivalence","result":"PASS","run_id":35335453730},{"name":"B12-exact","result":"PASS","run_id":35335498261},{"name":"B08-exact","result":"PASS","run_id":35335567897},{"name":"B07-exact","result":"PASS","run_id":35335569241},{"name":"B03-exact","result":"PASS","run_id":35335577111},{"name":"full-regressions","result":"PASS","run_id":35337335119}]
+}

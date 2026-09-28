@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-session-ui-integration/deliverable.json",
+  "source_sha256": "8513c9b9525223649827409b7c2981d8afc3fdee0140e132a8456be28447ed25",
+  "status": "DELIVERED",
+  "task_id": "bubble-session-ui-integration",
+  "validation": [{"name":"install","result":"PASS","run_id":35340773845},{"name":"typecheck","result":"PASS","run_id":35340773845},{"name":"session-ui","result":"PASS","run_id":35340773845},{"name":"lab-regression","result":"PASS","run_id":35340773845},{"name":"build","result":"PASS","run_id":35340773845},{"name":"no-placeholders","result":"PASS","run_id":35340773845}]
+}

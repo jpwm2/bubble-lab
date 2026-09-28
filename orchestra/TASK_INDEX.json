@@ -1,0 +1,7 @@
+{
+  "kind": "historical-process-evidence-stub",
+  "note": "Private Agent Control Plane content is intentionally not replicated into the public Bubble Lab repository.",
+  "schema_version": 1,
+  "source_path": "orchestra/TASK_INDEX.json",
+  "source_sha256": "08f45c50b4cb4891503095512554b652431d3db6e891e333c0c7f353e9db1232"
+}

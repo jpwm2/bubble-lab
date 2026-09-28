@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-postfragmentation-relaxation/deliverable.json",
+  "source_sha256": "7c19430d96580e7bd25dfc730e161be9c62e6a396916a16d608abfa10d34bbff",
+  "status": "DELIVERED",
+  "task_id": "bubble-postfragmentation-relaxation",
+  "validation": [{"name":"postfragment-tests","result":"PASS","run_id":35409148546},{"name":"postfragment-e2e","result":"PASS","run_id":35409116975},{"name":"determinism","result":"PASS","run_id":35409154603},{"name":"runtime-regression","result":"PASS","run_id":35409159458},{"name":"replay-smoke","result":"PASS","run_id":35409164446},{"name":"delivery-hygiene","result":"PASS"}]
+}
