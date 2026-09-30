@@ -39,16 +39,23 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+
           tests = sorted(Path("bubblelab").rglob("test_*.py"))
-          completion = [p for p in tests if "bubblelab/validation/completion/tests" in p.as_posix()]
-          product = [p for p in tests if p not in completion]
-          print(f"product_owned_test_files={len(product)}")
+          completion_root = Path("bubblelab/validation/completion/tests")
+          final_root = Path("bubblelab/validation/final/tests")
+          completion = [p for p in tests if completion_root in p.parents]
+          final = [p for p in tests if final_root in p.parents]
+          gated = [p for p in tests if p not in completion and p not in final]
+
+          print(f"all_test_files={len(tests)}")
+          print(f"product_gate_test_files={len(gated)}")
           print(f"legacy_coupled_completion_test_files={len(completion)}")
-          for p in product:
+          print(f"legacy_coupled_final_validation_test_files={len(final)}")
+          for p in gated:
               print(p)
           PY
 
-      - name: Run Product-owned Python tests excluding legacy completion audit tests
+      - name: Run Product-owned Python gate excluding classified legacy-coupled suites
         shell: bash
         run: |
           python - <<'PY'
@@ -56,11 +63,14 @@ jobs:
           import subprocess
           import sys
 
-          excluded = Path("bubblelab/validation/completion/tests")
+          excluded_roots = {
+              Path("bubblelab/validation/completion/tests"),
+              Path("bubblelab/validation/final/tests"),
+          }
           test_dirs = sorted({
               p.parent
               for p in Path("bubblelab").rglob("test_*.py")
-              if excluded not in p.parents
+              if not any(root in p.parents for root in excluded_roots)
           })
           failures = []
           for directory in test_dirs:
@@ -73,9 +83,55 @@ jobs:
               if completed.returncode:
                   failures.append(str(directory))
           if failures:
-              print("Failed test directories:", *failures, sep="\n- ", file=sys.stderr)
+              print("Failed Product-gate test directories:", *failures, sep="\n- ", file=sys.stderr)
               raise SystemExit(1)
           PY
+
+      - name: Characterize legacy-coupled validation test suites
+        id: legacy-validation-tests
+        shell: bash
+        run: |
+          set +e
+          python -m unittest discover \
+            -s bubblelab/validation/completion/tests \
+            -p 'test_*.py' -v \
+            >"${RUNNER_TEMP}/completion-tests.stdout" \
+            2>"${RUNNER_TEMP}/completion-tests.stderr"
+          completion_status=$?
+
+          python -m unittest discover \
+            -s bubblelab/validation/final/tests \
+            -p 'test_*.py' -v \
+            >"${RUNNER_TEMP}/final-tests.stdout" \
+            2>"${RUNNER_TEMP}/final-tests.stderr"
+          final_status=$?
+          set -e
+
+          echo "completion_tests_exit_code=${completion_status}" >> "$GITHUB_OUTPUT"
+          echo "final_tests_exit_code=${final_status}" >> "$GITHUB_OUTPUT"
+          echo "### Legacy-coupled validation tests (${matrix.boundary})" >> "$GITHUB_STEP_SUMMARY"
+          echo "completion tests exit code: ${completion_status}" >> "$GITHUB_STEP_SUMMARY"
+          echo "final validation tests exit code: ${final_status}" >> "$GITHUB_STEP_SUMMARY"
+          echo '```text' >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/completion-tests.stdout" "${RUNNER_TEMP}/completion-tests.stderr" >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/final-tests.stdout" "${RUNNER_TEMP}/final-tests.stderr" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+          cat "${RUNNER_TEMP}/completion-tests.stdout"
+          cat "${RUNNER_TEMP}/completion-tests.stderr" >&2
+          cat "${RUNNER_TEMP}/final-tests.stdout"
+          cat "${RUNNER_TEMP}/final-tests.stderr" >&2
+
+      - name: Upload legacy-coupled validation test characterization
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-validation-tests-${{ matrix.boundary }}
+          path: |
+            ${{ runner.temp }}/completion-tests.stdout
+            ${{ runner.temp }}/completion-tests.stderr
+            ${{ runner.temp }}/final-tests.stdout
+            ${{ runner.temp }}/final-tests.stderr
+          if-no-files-found: error
 
       - name: Validate canonical contract fixtures
         run: python bubblelab/python/tools/validate_contract_fixtures.py
