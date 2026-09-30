@@ -1,0 +1,69 @@
+name: Criteria 5 migration smoke
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/criteria-5-smoke.yml"
+      - ".github/workflows/criteria-5-validation.yml"
+      - "bubblelab/**"
+      - "docs/migration/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Smoke (${{ matrix.boundary }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - boundary: dedicated-main
+            snapshot: e72ed60ac3df6494f86bfe49d637b7e14ff11a72
+          - boundary: pre-control-plane-removal
+            snapshot: be27cbe8e0c03f27f9cb019d04658e72968a74f1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.snapshot }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Contract reference tests
+        run: python -m unittest discover -s bubblelab/python/tests -p 'test_*.py' -v
+      - name: Contract fixture validator
+        run: python bubblelab/python/tools/validate_contract_fixtures.py
+      - name: Runtime representative tests
+        run: python -m unittest bubblelab.runtime.tests.test_runtime -v
+      - name: Solver representative tests
+        run: python -m unittest bubblelab.solvers.equilibrium.tests.test_equilibrium -v
+      - name: Validation representative tests
+        run: python -m unittest bubblelab.validation.tests.test_equilibrium_validation -v
+      - name: Compile Python sources
+        run: python -m compileall -q bubblelab
+      - name: Characterize completion audit dependency
+        shell: bash
+        run: |
+          set +e
+          python bubblelab/validation/completion/run_completion_audit.py --output "${RUNNER_TEMP}/audit.json" --report "${RUNNER_TEMP}/audit.md" --assert-honest
+          status=$?
+          set -e
+          echo "completion_audit_exit=${status}"
+          echo "completion_audit_exit=${status}" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: bubblelab/viewer/package-lock.json
+      - name: Viewer install
+        working-directory: bubblelab/viewer
+        run: npm ci
+      - name: Viewer test
+        working-directory: bubblelab/viewer
+        run: npm test
+      - name: Viewer build
+        working-directory: bubblelab/viewer
+        run: npm run build
