@@ -109,7 +109,7 @@ jobs:
 
           echo "completion_tests_exit_code=${completion_status}" >> "$GITHUB_OUTPUT"
           echo "final_tests_exit_code=${final_status}" >> "$GITHUB_OUTPUT"
-          echo "### Legacy-coupled validation tests (${matrix.boundary})" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Legacy-coupled validation tests (${{ matrix.boundary }})" >> "$GITHUB_STEP_SUMMARY"
           echo "completion tests exit code: ${completion_status}" >> "$GITHUB_STEP_SUMMARY"
           echo "final validation tests exit code: ${final_status}" >> "$GITHUB_STEP_SUMMARY"
           echo '```text' >> "$GITHUB_STEP_SUMMARY"
@@ -153,7 +153,7 @@ jobs:
           status=$?
           set -e
           echo "exit_code=${status}" >> "$GITHUB_OUTPUT"
-          echo "### Completion audit (${matrix.boundary})" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Completion audit (${{ matrix.boundary }})" >> "$GITHUB_STEP_SUMMARY"
           echo "exit code: ${status}" >> "$GITHUB_STEP_SUMMARY"
           echo '```text' >> "$GITHUB_STEP_SUMMARY"
           cat "${RUNNER_TEMP}/completion-audit.stdout" "${RUNNER_TEMP}/completion-audit.stderr" >> "$GITHUB_STEP_SUMMARY"
