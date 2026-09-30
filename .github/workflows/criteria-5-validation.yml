@@ -1,0 +1,136 @@
+name: Criteria 5 migration validation
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/criteria-5-validation.yml"
+      - "bubblelab/**"
+      - "docs/migration/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  product-validation:
+    name: Product validation (${{ matrix.boundary }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - boundary: dedicated-main
+            snapshot: e72ed60ac3df6494f86bfe49d637b7e14ff11a72
+          - boundary: pre-control-plane-removal
+            snapshot: be27cbe8e0c03f27f9cb019d04658e72968a74f1
+    steps:
+      - name: Checkout Product snapshot
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.snapshot }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Inventory Product-owned Python tests
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          tests = sorted(Path("bubblelab").rglob("test_*.py"))
+          completion = [p for p in tests if "bubblelab/validation/completion/tests" in p.as_posix()]
+          product = [p for p in tests if p not in completion]
+          print(f"product_owned_test_files={len(product)}")
+          print(f"legacy_coupled_completion_test_files={len(completion)}")
+          for p in product:
+              print(p)
+          PY
+
+      - name: Run Product-owned Python tests excluding legacy completion audit tests
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          excluded = Path("bubblelab/validation/completion/tests")
+          test_dirs = sorted({
+              p.parent
+              for p in Path("bubblelab").rglob("test_*.py")
+              if excluded not in p.parents
+          })
+          failures = []
+          for directory in test_dirs:
+              print(f"::group::{directory}")
+              completed = subprocess.run(
+                  [sys.executable, "-m", "unittest", "discover", "-s", str(directory), "-p", "test_*.py", "-v"],
+                  check=False,
+              )
+              print("::endgroup::")
+              if completed.returncode:
+                  failures.append(str(directory))
+          if failures:
+              print("Failed test directories:", *failures, sep="\n- ", file=sys.stderr)
+              raise SystemExit(1)
+          PY
+
+      - name: Validate canonical contract fixtures
+        run: python bubblelab/python/tools/validate_contract_fixtures.py
+
+      - name: Compile Product-owned Python sources
+        run: python -m compileall -q bubblelab
+
+      - name: Characterize legacy-coupled completion audit
+        id: completion-audit
+        shell: bash
+        run: |
+          set +e
+          python bubblelab/validation/completion/run_completion_audit.py \
+            --output "${RUNNER_TEMP}/completion-audit.json" \
+            --report "${RUNNER_TEMP}/completion-audit.md" \
+            --assert-honest \
+            >"${RUNNER_TEMP}/completion-audit.stdout" \
+            2>"${RUNNER_TEMP}/completion-audit.stderr"
+          status=$?
+          set -e
+          echo "exit_code=${status}" >> "$GITHUB_OUTPUT"
+          echo "### Completion audit (${matrix.boundary})" >> "$GITHUB_STEP_SUMMARY"
+          echo "exit code: ${status}" >> "$GITHUB_STEP_SUMMARY"
+          echo '```text' >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/completion-audit.stdout" "${RUNNER_TEMP}/completion-audit.stderr" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/completion-audit.stdout"
+          cat "${RUNNER_TEMP}/completion-audit.stderr" >&2
+
+      - name: Upload completion-audit characterization
+        uses: actions/upload-artifact@v4
+        with:
+          name: completion-audit-${{ matrix.boundary }}
+          path: |
+            ${{ runner.temp }}/completion-audit.json
+            ${{ runner.temp }}/completion-audit.md
+            ${{ runner.temp }}/completion-audit.stdout
+            ${{ runner.temp }}/completion-audit.stderr
+          if-no-files-found: warn
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: bubblelab/viewer/package-lock.json
+
+      - name: Install viewer dependencies
+        working-directory: bubblelab/viewer
+        run: npm ci
+
+      - name: Test viewer
+        working-directory: bubblelab/viewer
+        run: npm test
+
+      - name: Build viewer
+        working-directory: bubblelab/viewer
+        run: npm run build
