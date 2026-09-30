@@ -1,0 +1,192 @@
+name: Criteria 5 migration validation
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/criteria-5-validation.yml"
+      - "bubblelab/**"
+      - "docs/migration/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  product-validation:
+    name: Product validation (${{ matrix.boundary }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - boundary: dedicated-main
+            snapshot: e72ed60ac3df6494f86bfe49d637b7e14ff11a72
+          - boundary: pre-control-plane-removal
+            snapshot: be27cbe8e0c03f27f9cb019d04658e72968a74f1
+    steps:
+      - name: Checkout Product snapshot
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.snapshot }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Inventory Product-owned Python tests
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          tests = sorted(Path("bubblelab").rglob("test_*.py"))
+          completion_root = Path("bubblelab/validation/completion/tests")
+          final_root = Path("bubblelab/validation/final/tests")
+          completion = [p for p in tests if completion_root in p.parents]
+          final = [p for p in tests if final_root in p.parents]
+          gated = [p for p in tests if p not in completion and p not in final]
+
+          print(f"all_test_files={len(tests)}")
+          print(f"product_gate_test_files={len(gated)}")
+          print(f"legacy_coupled_completion_test_files={len(completion)}")
+          print(f"legacy_coupled_final_validation_test_files={len(final)}")
+          for p in gated:
+              print(p)
+          PY
+
+      - name: Run Product-owned Python gate excluding classified legacy-coupled suites
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          excluded_roots = {
+              Path("bubblelab/validation/completion/tests"),
+              Path("bubblelab/validation/final/tests"),
+          }
+          test_dirs = sorted({
+              p.parent
+              for p in Path("bubblelab").rglob("test_*.py")
+              if not any(root in p.parents for root in excluded_roots)
+          })
+          failures = []
+          for directory in test_dirs:
+              print(f"::group::{directory}")
+              completed = subprocess.run(
+                  [sys.executable, "-m", "unittest", "discover", "-s", str(directory), "-p", "test_*.py", "-v"],
+                  check=False,
+              )
+              print("::endgroup::")
+              if completed.returncode:
+                  failures.append(str(directory))
+          if failures:
+              print("Failed Product-gate test directories:", *failures, sep="\n- ", file=sys.stderr)
+              raise SystemExit(1)
+          PY
+
+      - name: Characterize legacy-coupled validation test suites
+        id: legacy-validation-tests
+        shell: bash
+        run: |
+          set +e
+          python -m unittest discover \
+            -s bubblelab/validation/completion/tests \
+            -p 'test_*.py' -v \
+            >"${RUNNER_TEMP}/completion-tests.stdout" \
+            2>"${RUNNER_TEMP}/completion-tests.stderr"
+          completion_status=$?
+
+          python -m unittest discover \
+            -s bubblelab/validation/final/tests \
+            -p 'test_*.py' -v \
+            >"${RUNNER_TEMP}/final-tests.stdout" \
+            2>"${RUNNER_TEMP}/final-tests.stderr"
+          final_status=$?
+          set -e
+
+          echo "completion_tests_exit_code=${completion_status}" >> "$GITHUB_OUTPUT"
+          echo "final_tests_exit_code=${final_status}" >> "$GITHUB_OUTPUT"
+          echo "### Legacy-coupled validation tests (${{ matrix.boundary }})" >> "$GITHUB_STEP_SUMMARY"
+          echo "completion tests exit code: ${completion_status}" >> "$GITHUB_STEP_SUMMARY"
+          echo "final validation tests exit code: ${final_status}" >> "$GITHUB_STEP_SUMMARY"
+          echo '```text' >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/completion-tests.stdout" "${RUNNER_TEMP}/completion-tests.stderr" >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/final-tests.stdout" "${RUNNER_TEMP}/final-tests.stderr" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+          cat "${RUNNER_TEMP}/completion-tests.stdout"
+          cat "${RUNNER_TEMP}/completion-tests.stderr" >&2
+          cat "${RUNNER_TEMP}/final-tests.stdout"
+          cat "${RUNNER_TEMP}/final-tests.stderr" >&2
+
+      - name: Upload legacy-coupled validation test characterization
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-validation-tests-${{ matrix.boundary }}
+          path: |
+            ${{ runner.temp }}/completion-tests.stdout
+            ${{ runner.temp }}/completion-tests.stderr
+            ${{ runner.temp }}/final-tests.stdout
+            ${{ runner.temp }}/final-tests.stderr
+          if-no-files-found: error
+
+      - name: Validate canonical contract fixtures
+        run: python bubblelab/python/tools/validate_contract_fixtures.py
+
+      - name: Compile Product-owned Python sources
+        run: python -m compileall -q bubblelab
+
+      - name: Characterize legacy-coupled completion audit
+        id: completion-audit
+        shell: bash
+        run: |
+          set +e
+          python bubblelab/validation/completion/run_completion_audit.py \
+            --output "${RUNNER_TEMP}/completion-audit.json" \
+            --report "${RUNNER_TEMP}/completion-audit.md" \
+            --assert-honest \
+            >"${RUNNER_TEMP}/completion-audit.stdout" \
+            2>"${RUNNER_TEMP}/completion-audit.stderr"
+          status=$?
+          set -e
+          echo "exit_code=${status}" >> "$GITHUB_OUTPUT"
+          echo "### Completion audit (${{ matrix.boundary }})" >> "$GITHUB_STEP_SUMMARY"
+          echo "exit code: ${status}" >> "$GITHUB_STEP_SUMMARY"
+          echo '```text' >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/completion-audit.stdout" "${RUNNER_TEMP}/completion-audit.stderr" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/completion-audit.stdout"
+          cat "${RUNNER_TEMP}/completion-audit.stderr" >&2
+
+      - name: Upload completion-audit characterization
+        uses: actions/upload-artifact@v4
+        with:
+          name: completion-audit-${{ matrix.boundary }}
+          path: |
+            ${{ runner.temp }}/completion-audit.json
+            ${{ runner.temp }}/completion-audit.md
+            ${{ runner.temp }}/completion-audit.stdout
+            ${{ runner.temp }}/completion-audit.stderr
+          if-no-files-found: warn
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: bubblelab/viewer/package-lock.json
+
+      - name: Install viewer dependencies
+        working-directory: bubblelab/viewer
+        run: npm ci
+
+      - name: Test viewer
+        working-directory: bubblelab/viewer
+        run: npm test
+
+      - name: Build viewer
+        working-directory: bubblelab/viewer
+        run: npm run build
