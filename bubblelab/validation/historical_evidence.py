@@ -1,8 +1,8 @@
 """Resolve accepted historical validation evidence without restoring Control Plane paths.
 
 The immutable pre-removal repository snapshot remains the provenance source. Runtime
-completion/final validation consumes the Product-owned sanitized evidence manifest
-instead of reading ``tasks/*/deliverable.json`` from the current repository.
+completion/final validation consumes Product-owned sanitized evidence instead of
+requiring removed ``tasks/``, ``orchestra/`` or ``agent/`` paths locally.
 """
 from __future__ import annotations
 
@@ -17,6 +17,7 @@ HISTORICAL_SOURCE_REPOSITORY = "jpwm2/bubble-lab"
 HISTORICAL_SOURCE_COMMIT = "be27cbe8e0c03f27f9cb019d04658e72968a74f1"
 MIGRATION_EVIDENCE_REL = "docs/migration/criteria-5-validation-evidence.md"
 MIGRATION_VALIDATION_RUN_ID = 36682100918
+REMOVED_CONTROL_PLANE_PREFIXES = ("tasks/", "orchestra/", "agent/")
 
 
 def _manifest() -> dict[str, Any]:
@@ -37,6 +38,11 @@ def historical_delivery(task_id: str) -> dict[str, Any]:
 def is_historical_task_reference(relative: str) -> bool:
     parts = Path(relative).parts
     return len(parts) == 3 and parts[0] == "tasks" and parts[2] == "deliverable.json"
+
+
+def is_removed_control_plane_reference(relative: str) -> bool:
+    normalized = str(relative).replace("\\", "/")
+    return normalized.startswith(REMOVED_CONTROL_PLANE_PREFIXES)
 
 
 def immutable_source_url(relative: str) -> str:
