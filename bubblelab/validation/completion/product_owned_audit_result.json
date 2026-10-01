@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "kind": "product-owned-completion-audit-result",
+  "audited_at": "2026-10-01",
+  "requirement_source": "bubblelab/docs/PRODUCT_REQUIREMENTS.md",
+  "completion_boundary": "bubblelab/docs/PRODUCT_COMPLETION_BOUNDARY.md",
+  "historical_delivery_evidence": "bubblelab/validation/completion/historical_delivery_evidence.json",
+  "historical_source": {
+    "repository": "jpwm2/bubble-lab",
+    "commit": "be27cbe8e0c03f27f9cb019d04658e72968a74f1",
+    "migration_evidence": "docs/migration/criteria-5-validation-evidence.md",
+    "migration_validation_run_id": 36682100918
+  },
+  "result": {
+    "requirement_count": 39,
+    "status_counts": {
+      "SATISFIED": 30,
+      "PARTIAL": 8,
+      "UNVERIFIED": 1,
+      "NOT_IMPLEMENTED": 0,
+      "DEFERRED": 0
+    },
+    "incomplete_requirement_ids": [
+      "R1",
+      "R10",
+      "R11",
+      "R20",
+      "R28",
+      "R30",
+      "R35",
+      "R38",
+      "R39"
+    ],
+    "status_changes_from_accepted_baseline": [],
+    "final_acceptance_ready": false,
+    "final_acceptance_reason": "Incomplete requirements remain: R1, R10, R11, R20, R28, R30, R35, R38, R39.",
+    "honesty_issues": []
+  },
+  "validation": {
+    "workflow_run_id": 36847176133,
+    "workflow_head_sha": "701d2abc7da5f7f800c9fa276a82470b8819f7b3",
+    "workflow_conclusion": "success",
+    "artifact_name": "product-owned-completion-validation",
+    "artifact_id": 11154995998,
+    "artifact_digest": "sha256:3de35b71414328026ec93f1b4eb1e51e6770add830dc59e139fd8e77a2b32e30",
+    "completion_tests": "PASS",
+    "final_validation_tests": "PASS",
+    "honest_completion_audit": "PASS",
+    "final_assembly_no_execute": "PASS",
+    "product_python_regression": "PASS",
+    "contract_fixtures": "PASS",
+    "python_compile": "PASS",
+    "viewer_tests": "PASS",
+    "viewer_build": "PASS"
+  },
+  "scope_note": "This result preserves bounded capability classifications. It does not generalize MODELED evidence beyond the accepted measured regimes. Final Product acceptance remains false."
+}

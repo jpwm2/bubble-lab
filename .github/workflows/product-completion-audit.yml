@@ -1,0 +1,112 @@
+name: Product-owned completion audit
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/product-completion-audit.yml"
+      - "bubblelab/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  product-completion-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run completion audit tests
+        run: python -m unittest discover -s bubblelab/validation/completion/tests -p 'test_*.py' -v
+
+      - name: Run final validation tests
+        run: python -m unittest discover -s bubblelab/validation/final/tests -p 'test_*.py' -v
+
+      - name: Run Product-owned honest completion audit
+        run: |
+          python bubblelab/validation/completion/run_completion_audit.py \
+            --output "${RUNNER_TEMP}/completion-audit.json" \
+            --report "${RUNNER_TEMP}/completion-audit.md" \
+            --assert-honest
+
+      - name: Assemble Product-owned final validation
+        run: |
+          python bubblelab/validation/final/run_final_validation.py \
+            --output "${RUNNER_TEMP}/final-validation.json" \
+            --report "${RUNNER_TEMP}/final-validation.md" \
+            --no-execute \
+            --assert-honest
+
+      - name: Run Product Python regression gate
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          excluded_roots = {
+              Path("bubblelab/validation/completion/tests"),
+              Path("bubblelab/validation/final/tests"),
+          }
+          test_dirs = sorted({
+              p.parent
+              for p in Path("bubblelab").rglob("test_*.py")
+              if not any(root in p.parents for root in excluded_roots)
+          })
+          failures = []
+          for directory in test_dirs:
+              print(f"::group::{directory}")
+              completed = subprocess.run(
+                  [sys.executable, "-m", "unittest", "discover", "-s", str(directory), "-p", "test_*.py", "-v"],
+                  check=False,
+              )
+              print("::endgroup::")
+              if completed.returncode:
+                  failures.append(str(directory))
+          if failures:
+              print("Failed Product-gate test directories:", *failures, sep="\n- ", file=sys.stderr)
+              raise SystemExit(1)
+          PY
+
+      - name: Validate canonical contract fixtures
+        run: python bubblelab/python/tools/validate_contract_fixtures.py
+
+      - name: Compile Product Python sources
+        run: python -m compileall -q bubblelab
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: bubblelab/viewer/package-lock.json
+
+      - name: Install viewer dependencies
+        working-directory: bubblelab/viewer
+        run: npm ci
+
+      - name: Test viewer
+        working-directory: bubblelab/viewer
+        run: npm test
+
+      - name: Build viewer
+        working-directory: bubblelab/viewer
+        run: npm run build
+
+      - name: Upload completion/final reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: product-owned-completion-validation
+          path: |
+            ${{ runner.temp }}/completion-audit.json
+            ${{ runner.temp }}/completion-audit.md
+            ${{ runner.temp }}/final-validation.json
+            ${{ runner.temp }}/final-validation.md
+          if-no-files-found: error
