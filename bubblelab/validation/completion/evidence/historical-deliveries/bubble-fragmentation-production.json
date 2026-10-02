@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-fragmentation-production/deliverable.json",
+  "source_sha256": "f0a80aab3c7f44d12264077f142baef132eecf30e5c9fd9091c298080175204d",
+  "status": "DELIVERED",
+  "task_id": "bubble-fragmentation-production",
+  "validation": [{"name":"fragmentation-unit-tests","result":"PASS","run_id":35352135598},{"name":"neck-split","result":"PASS","run_id":35352135598},{"name":"conservation","result":"PASS","run_id":35352135598},{"name":"refinement","result":"PASS","run_id":35352135598},{"name":"runtime-contract-export","result":"PASS","run_id":35352135598},{"name":"no-placeholders","result":"PASS","run_id":35352135598}]
+}
