@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-transient-network-runtime-integration/deliverable.json",
+  "source_sha256": "1a5bc2dbc287d348b1d8bea93712f14bcbf3c7f2f237eb14d30b7a70c9ac5d7c",
+  "status": "DELIVERED",
+  "task_id": "bubble-transient-network-runtime-integration",
+  "validation": [{"name":"runtime-tests","result":"PASS","run_id":35350674293},{"name":"shared-film-e2e","result":"PASS","run_id":35350674293},{"name":"plateau-e2e","result":"PASS","run_id":35350674293},{"name":"forced-network-e2e","result":"PASS","run_id":35350674293},{"name":"runtime-regression","result":"PASS","run_id":35350674293},{"name":"no-placeholders","result":"PASS","run_id":35350674293}]
+}
