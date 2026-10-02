@@ -9,9 +9,10 @@ from typing import Any
 
 from .wave15_catalog import CATALOG as WAVE15_CATALOG
 from .wave17_catalog import CATALOG
+from .historical_evidence import historical_delivery
 
 ROOT = Path(__file__).resolve().parents[3]
-REQUIREMENTS = ROOT / "orchestra" / "REQUIREMENTS.md"
+REQUIREMENTS = ROOT / "bubblelab" / "docs" / "PRODUCT_REQUIREMENTS.md"
 STATUS_VOCABULARY = ("SATISFIED", "PARTIAL", "DEFERRED", "UNVERIFIED", "NOT_IMPLEMENTED")
 FEATURE_VOCABULARY = ("RESOLVED", "MODELED", "VISUAL_ONLY", "NOT_IMPLEMENTED")
 _REQUIRED_IDS = tuple(f"R{i}" for i in range(1, 40))
@@ -77,8 +78,7 @@ def _validate_catalog(titles: dict[str, str]) -> list[str]:
 
 
 def _delivery(task_id: str) -> dict[str, Any]:
-    path = ROOT / "tasks" / task_id / "deliverable.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    return historical_delivery(task_id)
 
 
 def _delivery_issues(task_id: str, required_checks: tuple[str, ...]) -> list[str]:
@@ -396,7 +396,7 @@ def build_audit(*, assert_honest: bool = False) -> dict[str, Any]:
     return {
         "schema_version": 4,
         "audit": "bubble-lab-r1-r39-completion-gap-audit",
-        "source_requirements": "orchestra/REQUIREMENTS.md",
+        "source_requirements": "bubblelab/docs/PRODUCT_REQUIREMENTS.md",
         "baseline": "post-wave-17 accepted main",
         "previous_baseline": "post-wave-15 accepted main / Wave-15 completion audit",
         "status_vocabulary": list(STATUS_VOCABULARY),
