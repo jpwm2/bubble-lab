@@ -9,6 +9,7 @@ import subprocess
 from typing import Any
 
 from bubblelab.validation.completion.audit import build_audit
+from bubblelab.validation.completion.historical_evidence import historical_delivery, historical_delivery_source
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -287,14 +288,15 @@ def _run_probe(spec: dict[str, Any]) -> dict[str, Any]:
 
 
 def _historical_record(spec: dict[str, Any]) -> dict[str, Any]:
-    path = ROOT / "tasks" / str(spec["task_id"]) / "deliverable.json"
+    task_id = str(spec["task_id"])
+    source = historical_delivery_source(task_id)
     try:
-        delivery = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
+        delivery = historical_delivery(task_id)
+    except (OSError, json.JSONDecodeError, KeyError, ValueError) as exc:
         return {
             "name": spec["name"],
             "execution": "ACCEPTED_HISTORICAL",
-            "source": path.relative_to(ROOT).as_posix(),
+            "source": source,
             "result": "FAIL",
             "reason": spec["reason"],
             "diagnostic": str(exc),
@@ -319,12 +321,11 @@ def _historical_record(spec: dict[str, Any]) -> dict[str, Any]:
     return {
         "name": spec["name"],
         "execution": "ACCEPTED_HISTORICAL",
-        "source": path.relative_to(ROOT).as_posix(),
+        "source": source,
         "result": "PASS" if passed else "FAIL",
         "reason": spec["reason"],
         "checks": selected,
     }
-
 
 def honesty_issues(completion: dict[str, Any] | None = None) -> list[str]:
     audit = completion or build_audit(assert_honest=True)
