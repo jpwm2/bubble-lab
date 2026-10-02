@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-plateau-border-hydrodynamics-foundation/deliverable.json",
+  "source_sha256": "b2a8c105ccb3e01a2c1445fa00d1a168ca2c80ca2e8d803a858de9f4a7830e5d",
+  "status": "DELIVERED",
+  "task_id": "bubble-plateau-border-hydrodynamics-foundation",
+  "validation": [{"name":"plateau-border-unit","result":"PASS","run_id":35506678841},{"name":"border-force-balance","result":"PASS","run_id":35506678841},{"name":"border-conservation","result":"PASS","run_id":35506678841},{"name":"border-response","result":"PASS","run_id":35506678841},{"name":"border-refinement","result":"PASS","run_id":35506678841},{"name":"t1-coupling","result":"PASS","run_id":35506678841},{"name":"runtime-e2e","result":"PASS","run_id":35506678841},{"name":"network-regression","result":"PASS","run_id":35506678841},{"name":"runtime-regression","result":"PASS","run_id":35506678841},{"name":"no-placeholders","result":"PASS","run_id":35506678841}]
+}
