@@ -22,7 +22,7 @@ class Wave19CompletionAuditTests(unittest.TestCase):
         self.assertEqual([item["requirement_id"] for item in changes], ["R13"])
         self.assertEqual(changes[0]["from"], "PARTIAL")
         self.assertEqual(changes[0]["to"], "SATISFIED")
-        self.assertIn("tasks/bubble-manybubble-gas-diffusion-network/deliverable.json", changes[0]["evidence_added"])
+        self.assertIn("bubblelab/validation/completion/evidence/historical-deliveries/bubble-manybubble-gas-diffusion-network.json", changes[0]["evidence_added"])
 
     def test_r13_consumes_fixed_topology_manybubble_gas_network(self) -> None:
         row = self.rows["R13"]
