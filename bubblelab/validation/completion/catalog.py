@@ -24,7 +24,7 @@ def row(
 CATALOG: dict[str, dict[str, object]] = {
     "R1": row(
         "PARTIAL",
-        ["bubblelab/docs/physics/PHYSICS_MODEL.md", "bubblelab/solvers/equilibrium/solver.py", "bubblelab/solvers/transient/solver.py", "bubblelab/runtime/runner.py", "tasks/bubble-transient-release-acceleration/deliverable.json"],
+        ["bubblelab/docs/physics/PHYSICS_MODEL.md", "bubblelab/solvers/equilibrium/solver.py", "bubblelab/solvers/transient/solver.py", "bubblelab/runtime/runner.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json"],
         "The repository contains physical equilibrium and transient solvers with exact B03/B07/B08/B12 reference-model release qualification, but material topology-integration, live-transport, physical-device and deferred-physics gaps remain.",
         "Close or explicitly defer the remaining R38 integration gaps without replacing solver physics with browser-only behavior.",
         features={"physical_solver_stack": "MODELED", "exact_transient_release_qualification": "RESOLVED", "visual_substitute_as_physics": "NOT_IMPLEMENTED"},
@@ -38,7 +38,7 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R3": row(
         "SATISFIED",
-        ["bubblelab/viewer/src/camera.ts", "bubblelab/viewer/src/main.ts", "bubblelab/viewer/src/mobile.ts", "bubblelab/viewer/test/mobile.test.mjs", "tasks/bubble-mobile-webkit-verification/deliverable.json"],
+        ["bubblelab/viewer/src/camera.ts", "bubblelab/viewer/src/main.ts", "bubblelab/viewer/src/mobile.ts", "bubblelab/viewer/test/mobile.test.mjs", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-mobile-webkit-verification.json"],
         "Desktop navigation, deterministic touch/navigation policy and real Playwright WebKit mobile-engine behavior are implemented; physical-device qualification remains isolated to R28.",
         "Keep navigation and WebKit-engine regression tests when camera or gesture behavior changes.",
         features={"desktop_navigation": "RESOLVED", "touch_navigation_policy": "RESOLVED", "webkit_mobile_engine": "RESOLVED"},
@@ -59,7 +59,7 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R6": row(
         "SATISFIED",
-        ["bubblelab/solvers/equilibrium/solver.py", "bubblelab/validation/equilibrium_suite.py", "bubblelab/solvers/transient/release_benchmarks.py", "tasks/bubble-transient-release-acceleration/deliverable.json"],
+        ["bubblelab/solvers/equilibrium/solver.py", "bubblelab/validation/equilibrium_suite.py", "bubblelab/solvers/transient/release_benchmarks.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json"],
         "Young-Laplace behavior is validated in equilibrium and the repository-defined transient reference model now has exact B12 fine-bulk release qualification using a B02-qualified tracked surface.",
         "Retain the exact B12 gate and do not reinterpret this reference-model qualification as resolved singular multiphase CFD.",
         benchmarks=["B02", "B12", "B13"],
@@ -67,7 +67,7 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R7": row(
         "SATISFIED",
-        ["bubblelab/solvers/equilibrium/energy.py", "bubblelab/solvers/transient/release_benchmarks.py", "bubblelab/solvers/transient/remeshing.py", "tasks/bubble-transient-release-acceleration/deliverable.json"],
+        ["bubblelab/solvers/equilibrium/energy.py", "bubblelab/solvers/transient/release_benchmarks.py", "bubblelab/solvers/transient/remeshing.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json"],
         "Equilibrium volume/energy, conservative remeshing and exact long-window transient B03/B07 release gates are accepted for the repository-defined reference model.",
         "Retain B03/B07 exact qualification and conservative-remeshing regression coverage.",
         benchmarks=["B01", "B03", "B07", "B13", "B14"],
@@ -98,7 +98,7 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R11": row(
         "PARTIAL",
-        ["bubblelab/solvers/transient/grid.py", "bubblelab/solvers/transient/solver.py", "bubblelab/solvers/transient/release_benchmarks.py", "tasks/bubble-transient-release-acceleration/deliverable.json"],
+        ["bubblelab/solvers/transient/grid.py", "bubblelab/solvers/transient/solver.py", "bubblelab/solvers/transient/release_benchmarks.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json"],
         "Gravity, ambient density/viscosity and wind are modeled and B12 is exactly release-qualified for the repository-defined reference model, but resolved bulk no-slip wall CFD and requested CFD/VOF/level-set combinations remain explicitly unavailable.",
         "Implement and qualify resolved ambient-fluid/wall-CFD claims before promoting them beyond MODELED; keep the accepted B12 reference-model evidence intact.",
         benchmarks=["B09", "B12"],
@@ -145,14 +145,14 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R17": row(
         "PARTIAL",
-        ["bubblelab/solvers/boundary/contact.py", "bubblelab/runtime/boundary_runtime.py", "bubblelab/scenarios/runtime/transient-floor-contact.scenario.json", "bubblelab/viewer/src/lab.ts", "tasks/bubble-boundary-ui-integration/deliverable.json"],
+        ["bubblelab/solvers/boundary/contact.py", "bubblelab/runtime/boundary_runtime.py", "bubblelab/scenarios/runtime/transient-floor-contact.scenario.json", "bubblelab/viewer/src/lab.ts", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-boundary-ui-integration.json"],
         "Tracked-front wall contact, modeled wettability, canonical transient boundary runtime integration and solid-boundary UI editing are accepted; resolved bulk no-slip solid-fluid wall CFD remains explicitly unavailable.",
         "Retain the accepted boundary UI/runtime path and implement resolved no-slip wall-fluid coupling only if that higher-fidelity capability is required.",
         features={"tracked_front_boundary_contact": "MODELED", "solid_boundary_ui_integration": "RESOLVED", "resolved_no_slip_wall_cfd": "NOT_IMPLEMENTED"},
     ),
     "R18": row(
         "SATISFIED",
-        ["bubblelab/viewer/src/lab.ts", "bubblelab/solvers/transient/release_benchmarks.py", "tasks/bubble-transient-release-acceleration/deliverable.json"],
+        ["bubblelab/viewer/src/lab.ts", "bubblelab/solvers/transient/release_benchmarks.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json"],
         "Arbitrary gravity vectors are modeled/editable and exact B08 zero-gravity release qualification now includes the required full-time rotated repeat.",
         "Retain exact B08 qualification and gravity-vector/preset regression coverage.",
         benchmarks=["B08"],
@@ -160,14 +160,14 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R19": row(
         "PARTIAL",
-        ["bubblelab/viewer/src/replay.ts", "bubblelab/runtime/session_control.py", "bubblelab/viewer/src/sessionControl.ts", "tasks/bubble-runtime-session-control/deliverable.json", "tasks/bubble-session-ui-integration/deliverable.json"],
+        ["bubblelab/viewer/src/replay.ts", "bubblelab/runtime/session_control.py", "bubblelab/viewer/src/sessionControl.ts", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-runtime-session-control.json", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-session-ui-integration.json"],
         "Authoritative PAUSE/RESUME/STEP/RUN_TO_TIME/RESET runtime-session semantics and deterministic UI command staging are accepted, while the browser still exports commands and imports authoritative bundles rather than using a direct live browser-to-solver transport.",
         "Add a direct live transport only if required; until then preserve the explicit external-CLI command/bundle handoff and keep replay navigation distinct from solver-session control.",
         features={"replay_time_control": "RESOLVED", "authoritative_runtime_session_control": "RESOLVED", "session_ui_command_staging": "RESOLVED", "browser_live_solver_transport": "NOT_IMPLEMENTED"},
     ),
     "R20": row(
         "PARTIAL",
-        ["bubblelab/viewer/src/lab.ts", "bubblelab/solvers/transient/amr.py", "bubblelab/solvers/transient/solver.py", "bubblelab/runtime/runner.py", "tasks/bubble-transient-release-acceleration/deliverable.json"],
+        ["bubblelab/viewer/src/lab.ts", "bubblelab/solvers/transient/amr.py", "bubblelab/solvers/transient/solver.py", "bubblelab/runtime/runner.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json"],
         "Fidelity selection and solver accuracy mechanisms exist and exact release gates are accepted, but not every high-end solver control/runtime combination is exposed through the canonical integrated path.",
         "Reconcile user-facing capability declarations with runnable backend combinations while preserving exact release-gate evidence.",
         features={"solver_accuracy_mechanisms": "MODELED", "exact_release_gates": "RESOLVED", "all_high_end_runtime_combinations": "NOT_IMPLEMENTED"},
@@ -216,14 +216,14 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R27": row(
         "PARTIAL",
-        ["bubblelab/viewer/src/lab.ts", "bubblelab/viewer/src/main.ts", "bubblelab/viewer/test/lab-ui.test.mjs", "bubblelab/runtime/event_runtime.py", "tasks/bubble-session-ui-integration/deliverable.json"],
+        ["bubblelab/viewer/src/lab.ts", "bubblelab/viewer/src/main.ts", "bubblelab/viewer/test/lab-ui.test.mjs", "bubblelab/runtime/event_runtime.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-session-ui-integration.json"],
         "The editor supports scenario manipulation, user-burst intent and authoritative session-command staging, but several actions remain scenario/export operations rather than direct live manipulation of a running solver over a browser transport.",
         "Validate or implement the required action set against an authoritative integrated runtime and retain edit-vs-run mode boundaries.",
         features={"scenario_direct_manipulation": "RESOLVED", "authoritative_session_command_staging": "RESOLVED", "live_browser_physics_manipulation": "NOT_IMPLEMENTED"},
     ),
     "R28": row(
         "UNVERIFIED",
-        ["bubblelab/viewer/src/mobile.ts", "bubblelab/viewer/test/mobile.test.mjs", "bubblelab/viewer/MOBILE_WEBKIT_VERIFICATION.md", "tasks/bubble-mobile-webkit-verification/deliverable.json"],
+        ["bubblelab/viewer/src/mobile.ts", "bubblelab/viewer/test/mobile.test.mjs", "bubblelab/viewer/MOBILE_WEBKIT_VERIFICATION.md", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-mobile-webkit-verification.json"],
         "Real Playwright WebKit mobile-engine verification passes at iPhone-class profiles, including the compact-layout fix, but physical iPhone Safari/device GPU behavior and native hardware multi-touch remain unverified.",
         "Run the documented verification on a physical iPhone Safari or credible device-browser service and archive device/browser/render/input evidence before claiming hardware certification.",
         features={"mobile_layout_gestures": "RESOLVED", "webkit_mobile_engine": "RESOLVED", "physical_iphone_safari": "NOT_IMPLEMENTED", "native_hardware_multitouch": "NOT_IMPLEMENTED"},
@@ -237,14 +237,14 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R30": row(
         "PARTIAL",
-        ["bubblelab/contracts/checkpoint.schema.json", "bubblelab/runtime/checkpoint_runtime.py", "bubblelab/scenarios/runtime/checkpoint-transient.scenario.json", "bubblelab/scenarios/runtime/checkpoint-thinfilm.scenario.json", "tasks/bubble-checkpoint-restart/deliverable.json"],
+        ["bubblelab/contracts/checkpoint.schema.json", "bubblelab/runtime/checkpoint_runtime.py", "bubblelab/scenarios/runtime/checkpoint-transient.scenario.json", "bubblelab/scenarios/runtime/checkpoint-thinfilm.scenario.json", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-checkpoint-restart.json"],
         "Canonical scenario persistence plus exact same-build fresh-process transient/thin-film checkpoint/restart are accepted, but the requested reusable scenario family remains incomplete for many-bubble/network cases constrained by current runtime integration.",
         "Retain same-build checkpoint/restart evidence and add the missing reusable many-bubble/network scenarios after the authoritative network runtime exists; do not claim cross-version checkpoint portability.",
         features={"scenario_persistence": "RESOLVED", "same_build_checkpoint_restart": "RESOLVED", "cross_version_checkpoint_portability": "NOT_IMPLEMENTED", "complete_initial_scenario_set": "NOT_IMPLEMENTED"},
     ),
     "R31": row(
         "SATISFIED",
-        ["bubblelab/runtime/runner.py", "bubblelab/runtime/checkpoint_runtime.py", "bubblelab/contracts/simulation-manifest.schema.json", "tasks/bubble-checkpoint-restart/deliverable.json"],
+        ["bubblelab/runtime/runner.py", "bubblelab/runtime/checkpoint_runtime.py", "bubblelab/contracts/simulation-manifest.schema.json", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-checkpoint-restart.json"],
         "Seeds and deterministic same-build replay are stored and validated, and fresh-process same-build checkpoint continuation is qualified exactly for supported transient/thin-film state.",
         "Do not reinterpret same-build determinism as cross-platform bitwise identity or cross-version checkpoint portability without separate evidence.",
         benchmarks=["B11", "B15", "B16"],
@@ -252,7 +252,7 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R32": row(
         "SATISFIED",
-        ["bubblelab/validation/equilibrium_suite.py", "bubblelab/validation/spec/BENCHMARK_MATRIX.md", "bubblelab/solvers/transient/release_benchmarks.py", "tasks/bubble-transient-release-acceleration/deliverable.json"],
+        ["bubblelab/validation/equilibrium_suite.py", "bubblelab/validation/spec/BENCHMARK_MATRIX.md", "bubblelab/solvers/transient/release_benchmarks.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json"],
         "The automated validation stack covers the benchmark matrix, and exact B03/B07/B08/B12 transient release qualification is accepted without weakened gates.",
         "Keep exact release qualification in the final validation wave and preserve its documented reference-model scope.",
         benchmarks=["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14", "B15", "B16"],
@@ -274,7 +274,7 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R35": row(
         "PARTIAL",
-        ["bubblelab/viewer/src/lab.ts", "bubblelab/runtime/runner.py", "bubblelab/solvers/transient/solver.py", "tasks/bubble-transient-release-acceleration/deliverable.json"],
+        ["bubblelab/viewer/src/lab.ts", "bubblelab/runtime/runner.py", "bubblelab/solvers/transient/solver.py", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json"],
         "Multiple backends/fidelity declarations and exact transient release qualification exist, but maximum-realism integration remains constrained by unsupported dynamic network and other high-fidelity runtime combinations.",
         "Close the remaining high-fidelity runtime-integration gaps while retaining lower-fidelity modes and exact release evidence with explicit scope.",
         features={"multi_backend_fidelity": "MODELED", "exact_transient_release_qualification": "RESOLVED", "maximum_realism_integrated": "NOT_IMPLEMENTED"},
@@ -288,14 +288,14 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R37": row(
         "SATISFIED",
-        ["agent/WORKER_PROTOCOL.md", "orchestra/TASK_INDEX.json", "orchestra/ARCHITECTURE.md"],
+        ["bubblelab/docs/PRODUCT_REQUIREMENTS.md", "bubblelab/validation/completion/evidence/HISTORICAL_EVIDENCE.md"],
         "The repository uses scoped Workers with explicit dependency and edit ownership; this is a process requirement for decomposition rather than physical feature evidence.",
         "Continue using non-overlapping task scopes for remaining work.",
         features={"worker_decomposition": "RESOLVED"},
     ),
     "R38": row(
         "PARTIAL",
-        ["bubblelab/runtime/runner.py", "bubblelab/viewer/src/sessionControl.ts", "bubblelab/viewer/MOBILE_WEBKIT_VERIFICATION.md", "bubblelab/research/fragmentation/README.md", "tasks/bubble-transient-release-acceleration/deliverable.json", "tasks/bubble-mobile-webkit-verification/deliverable.json", "tasks/bubble-runtime-session-control/deliverable.json", "tasks/bubble-session-ui-integration/deliverable.json", "tasks/bubble-checkpoint-restart/deliverable.json", "tasks/bubble-boundary-ui-integration/deliverable.json"],
+        ["bubblelab/runtime/runner.py", "bubblelab/viewer/src/sessionControl.ts", "bubblelab/viewer/MOBILE_WEBKIT_VERIFICATION.md", "bubblelab/research/fragmentation/README.md", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-transient-release-acceleration.json", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-mobile-webkit-verification.json", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-runtime-session-control.json", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-session-ui-integration.json", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-checkpoint-restart.json", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-boundary-ui-integration.json"],
         "Exact B03/B07/B08/B12 release qualification, solid-boundary UI/runtime integration, authoritative runtime-session semantics, session UI staging and same-build checkpoint/restart are accepted. Integrated completion is still blocked by the unaccepted canonical transient shared-film/Plateau network path, absent live browser-to-solver transport, unverified physical iPhone Safari/native multi-touch, research-only production fragmentation, and explicitly unresolved bulk no-slip wall CFD.",
         "Close or explicitly defer each remaining integration/device/physics gap, then run final end-to-end validation against that resulting baseline.",
         benchmarks=["B03", "B07", "B08", "B12"],
@@ -303,7 +303,7 @@ CATALOG: dict[str, dict[str, object]] = {
     ),
     "R39": row(
         "PARTIAL",
-        ["bubblelab/docs/physics/PHYSICS_MODEL.md", "bubblelab/runtime/runner.py", "bubblelab/solvers/transient/release_benchmarks.py", "bubblelab/viewer/src/sessionControl.ts", "tasks/bubble-checkpoint-restart/deliverable.json"],
+        ["bubblelab/docs/physics/PHYSICS_MODEL.md", "bubblelab/runtime/runner.py", "bubblelab/solvers/transient/release_benchmarks.py", "bubblelab/viewer/src/sessionControl.ts", "bubblelab/validation/completion/evidence/historical-deliveries/bubble-checkpoint-restart.json"],
         "Bubble Lab contains real physical models, exact transient release gates, authoritative session control and persistent same-build continuation, but the full laboratory statement cannot be claimed while R38 retains material network, live-transport, device and deferred-physics gaps.",
         "Complete final integrated validation without hiding unsupported physics or device claims behind visual behavior.",
         features={"physical_laboratory_direction": "MODELED", "complete_physical_laboratory": "NOT_IMPLEMENTED"},
