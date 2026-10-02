@@ -23,9 +23,9 @@ def _set_features(requirement_id: str, **features: str) -> None:
     current.update(features)
 
 
-TOPOLOGY_GAS = "tasks/bubble-topology-changing-gas-transport/deliverable.json"
-T1_GLOBAL_CFD = "tasks/bubble-t1-through-global-cfd-foundation/deliverable.json"
-RIM_BREAKUP = "tasks/bubble-retracting-rim-ligament-droplet-foundation/deliverable.json"
+TOPOLOGY_GAS = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-topology-changing-gas-transport.json"
+T1_GLOBAL_CFD = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-t1-through-global-cfd-foundation.json"
+RIM_BREAKUP = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-retracting-rim-ligament-droplet-foundation.json"
 
 for requirement_id in ("R1", "R13", "R35", "R38", "R39"):
     _extend_evidence(requirement_id, TOPOLOGY_GAS)
