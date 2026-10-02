@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-multievent-topology-gas-network-foundation/deliverable.json",
+  "source_sha256": "a5f1528882b9bad1afda4937105b63552ac603c97edd0cc0fbe217284d0a6283",
+  "status": "DELIVERED",
+  "task_id": "bubble-multievent-topology-gas-network-foundation",
+  "validation": [{"name":"gas-network-unit","result":"PASS","run_id":35684399868},{"name":"multievent-sequence","result":"PASS","run_id":35684399868},{"name":"multievent-dependence","result":"PASS","run_id":35684399868},{"name":"multievent-conservation","result":"PASS","run_id":35684399868},{"name":"multievent-transport-rebuild","result":"PASS","run_id":35684399868},{"name":"multievent-replay","result":"PASS","run_id":35684399868},{"name":"runtime-e2e","result":"PASS","run_id":35684399868},{"name":"runtime-regression","result":"PASS","run_id":35684399868},{"name":"no-placeholders","result":"PASS","run_id":35684399868}]
+}

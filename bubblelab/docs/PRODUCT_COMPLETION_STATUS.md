@@ -13,9 +13,9 @@ This is the Product-owned projection of the latest accepted R1-R39 completion st
 
 The latest accepted completion baseline is post-Wave-27: **39 requirements, 30 SATISFIED, 8 PARTIAL, 1 UNVERIFIED, final acceptance not ready**.
 
-The historical completion/final audit implementation still contains references to removed `orchestra/` and `tasks/` Control Plane/process assets. On the dedicated Product repository boundary those legacy-coupled audit paths are therefore not currently runnable end to end. Migration validation demonstrated that this is a repository-boundary dependency, not a Product migration regression. Do not restore Control Plane assets to make those checks green.
+The completion/final audit assembly is now self-contained inside the dedicated Product repository boundary. Requirements are read from [`PRODUCT_REQUIREMENTS.md`](PRODUCT_REQUIREMENTS.md), accepted historical validation facts are stored under `bubblelab/validation/completion/evidence/`, and current audit/final assembly no longer require deleted `agent/`, `orchestra/`, or `tasks/` runtime paths. The historical records remain provenance-linked to the immutable pre-removal Product snapshot rather than restoring Control Plane state.
 
-The Product completion boundary is now explicitly defined in [`PRODUCT_COMPLETION_BOUNDARY.md`](PRODUCT_COMPLETION_BOUNDARY.md). It preserves bounded evidence and resolves the previous over-broad interpretation that Product completion required universal topology/CFD/breakup/wall/live-surgery coverage. The status counts below remain the latest accepted Wave-27 audit projection until the Product-owned audit is rebuilt and re-evaluates the requirements against that boundary.
+The Product completion boundary is explicitly defined in [`PRODUCT_COMPLETION_BOUNDARY.md`](PRODUCT_COMPLETION_BOUNDARY.md). It preserves bounded evidence and resolves the previous over-broad interpretation that Product completion required universal topology/CFD/breakup/wall/live-surgery coverage. The self-contained audit currently preserves the accepted post-Wave-27 status matrix of **30 SATISFIED / 8 PARTIAL / 1 UNVERIFIED**; closing audit ownership does not by itself close the remaining Product requirement gaps.
 
 Bounded MODELED evidence must not be generalized into unrestricted physical claims.
 
@@ -135,20 +135,20 @@ Evidence: Product implementation/validation stack and `bubblelab/docs/PRODUCT_CO
 ## Known blockers / barriers
 
 - Physical iPhone Safari/device-GPU/native hardware multi-touch qualification.
-- Product-owned completion audit/evidence migration: current historical audit references removed Control Plane/process paths and cannot be the final self-contained Product acceptance gate in its present form.
+- Product-owned completion audit/evidence migration is closed; the remaining blockers are Product capability/evidence gaps rather than repository-boundary coupling.
 - R20 capability truthfulness: exposed accuracy/fidelity controls must map to runnable Product capabilities and disclose unsupported combinations.
 - R30 required reusable scenario/persistence breadth: the named initial scenario family and supported save/restart path must be verified/closed.
 - R38 Product-owned integrated acceptance across its explicit capability list.
 
 The previously listed unrestricted universal topology/CFD/breakup/deforming-wall/arbitrary-live-surgery classes remain valid future high-fidelity extensions and explicit capability boundaries, but are no longer unresolved Product-level completion semantics.
 
-## Completion-audit ownership gap
+## Completion-audit ownership
 
-A Product-completion Project must replace the legacy coupling without reintroducing Control Plane state:
+W2 closes the repository-boundary ownership gap without reintroducing Control Plane state:
 
-1. consume [`PRODUCT_REQUIREMENTS.md`](PRODUCT_REQUIREMENTS.md) and [`PRODUCT_COMPLETION_BOUNDARY.md`](PRODUCT_COMPLETION_BOUNDARY.md) as Product-owned requirement/acceptance sources;
-2. make current completion/final validation consume Product-owned evidence or immutable historical evidence references rather than `tasks/*` Control Plane paths;
-3. retain exact bounded capability classifications and honesty checks;
-4. produce a repeatable final acceptance result from the dedicated Product repository boundary.
+1. the audit consumes [`PRODUCT_REQUIREMENTS.md`](PRODUCT_REQUIREMENTS.md) as its Product-owned R1-R39 source;
+2. completion/final validation consume Product-owned historical validation records under `bubblelab/validation/completion/evidence/`;
+3. bounded capability classifications and honesty checks remain active;
+4. the canonical runners emit machine-readable JSON and human-readable Markdown under Product-owned completion/final artifact paths, with current-branch CI exercising the rebuilt assembly.
 
-This audit-ownership work is itself a Product completion gap. It is not evidence that previously accepted Product behavior disappeared.
+This closes audit ownership/runnability only. It does not convert the remaining PARTIAL or UNVERIFIED requirements to SATISFIED.

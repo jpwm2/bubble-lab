@@ -72,6 +72,13 @@ class RefreshEvidenceTests(unittest.TestCase):
     def test_honesty_evidence_contract_is_clean(self) -> None:
         self.assertEqual(integrity_issues(assert_honest=True), [])
 
+    def test_completion_audit_is_product_owned(self) -> None:
+        self.assertEqual(self.audit["source_requirements"], "bubblelab/docs/PRODUCT_REQUIREMENTS.md")
+        removed_prefixes = ("tasks/", "orchestra/", "agent/")
+        for row in self.audit["rows"]:
+            for evidence in row["evidence"]:
+                self.assertFalse(str(evidence).startswith(removed_prefixes), evidence)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -82,6 +82,11 @@ class FinalValidationTests(unittest.TestCase):
         self.assertEqual(result["completion_audit_summary"]["status_counts"]["SATISFIED"], 29)
         self.assertEqual(result["completion_audit_summary"]["status_counts"]["PARTIAL"], 9)
         self.assertEqual(result["completion_audit_summary"]["status_counts"]["UNVERIFIED"], 1)
+        for item in result["accepted_historical_evidence"]:
+            self.assertTrue(
+                item["source"].startswith("bubblelab/validation/completion/evidence/historical-deliveries/"),
+                item["source"],
+            )
         report = render_markdown(result)
         self.assertIn("Smallest blocking gaps", report)
         self.assertIn("Claim boundaries retained", report)

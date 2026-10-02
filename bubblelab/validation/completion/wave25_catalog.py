@@ -23,9 +23,9 @@ def _set_features(requirement_id: str, **features: str) -> None:
     current.update(features)
 
 
-REPEATED_T1_GAS = "tasks/bubble-repeated-t1-gas-transport-foundation/deliverable.json"
-INTERACTING_MULTIHOLE = "tasks/bubble-interacting-multihole-breakup-foundation/deliverable.json"
-MANYCONTACT_T1_CFD = "tasks/bubble-manycontact-t1-global-cfd-foundation/deliverable.json"
+REPEATED_T1_GAS = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-repeated-t1-gas-transport-foundation.json"
+INTERACTING_MULTIHOLE = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-interacting-multihole-breakup-foundation.json"
+MANYCONTACT_T1_CFD = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-manycontact-t1-global-cfd-foundation.json"
 
 for requirement_id in ("R1", "R9", "R12", "R13", "R30", "R31", "R35", "R38", "R39"):
     _extend_evidence(requirement_id, REPEATED_T1_GAS)

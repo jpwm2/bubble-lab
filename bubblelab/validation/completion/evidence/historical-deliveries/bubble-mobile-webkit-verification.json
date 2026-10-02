@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-mobile-webkit-verification/deliverable.json",
+  "source_sha256": "fc5f4d1419392666e906648d8f0720442cee35d972f3e2136f02ccae659e1441",
+  "status": "DELIVERED",
+  "task_id": "bubble-mobile-webkit-verification",
+  "validation": [{"name":"viewer-install","result":"PASS","run_id":35335187733},{"name":"viewer-typecheck","result":"PASS","run_id":35335187733},{"name":"viewer-test-suite","result":"PASS","run_id":35335187733},{"name":"mobile-contract-tests","result":"PASS","run_id":35335187733},{"name":"real-webkit-mobile-e2e","result":"PASS","run_id":35335187733},{"name":"lab-ui-tests","result":"PASS","run_id":35335187733},{"name":"runtime-bundle-tests","result":"PASS","run_id":35335187733},{"name":"viewer-build","result":"PASS","run_id":35335187733},{"name":"verification-report-present","result":"PASS","run_id":35335187733},{"name":"scoped-hygiene","result":"PASS","run_id":35335187733}]
+}

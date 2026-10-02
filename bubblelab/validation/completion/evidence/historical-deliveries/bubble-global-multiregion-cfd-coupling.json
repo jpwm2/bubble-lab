@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-global-multiregion-cfd-coupling/deliverable.json",
+  "source_sha256": "e794be08a143069c1300c89677f1240eff688a9828e51aac463aae6a134f58fd",
+  "status": "DELIVERED",
+  "task_id": "bubble-global-multiregion-cfd-coupling",
+  "validation": [{"name":"multiregion-cfd-unit","result":"PASS","run_id":35435660105},{"name":"field-refinement","result":"PASS","run_id":35435660105},{"name":"mass-momentum-balance","result":"PASS","run_id":35435660105},{"name":"front-feedback","result":"PASS","run_id":35435660105},{"name":"runtime-e2e","result":"PASS","run_id":35435660105},{"name":"runtime-regression","result":"PASS","run_id":35435660105},{"name":"no-placeholders","result":"PASS","run_id":35435660105}]
+}

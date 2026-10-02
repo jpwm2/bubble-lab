@@ -23,9 +23,9 @@ def _set_features(requirement_id: str, **features: str) -> None:
     current.update(features)
 
 
-ASYMMETRIC_RIM = "tasks/bubble-asymmetric-multimode-rim-breakup-foundation/deliverable.json"
-PLATEAU_BORDER = "tasks/bubble-plateau-border-hydrodynamics-foundation/deliverable.json"
-STRONG_T1_CFD = "tasks/bubble-strongly-coupled-t1-global-cfd-foundation/deliverable.json"
+ASYMMETRIC_RIM = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-asymmetric-multimode-rim-breakup-foundation.json"
+PLATEAU_BORDER = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-plateau-border-hydrodynamics-foundation.json"
+STRONG_T1_CFD = "bubblelab/validation/completion/evidence/historical-deliveries/bubble-strongly-coupled-t1-global-cfd-foundation.json"
 
 for requirement_id in ("R1", "R16", "R35", "R38", "R39"):
     _extend_evidence(requirement_id, ASYMMETRIC_RIM)

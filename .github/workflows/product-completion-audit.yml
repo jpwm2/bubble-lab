@@ -1,0 +1,95 @@
+name: Product completion audit
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/product-completion-audit.yml"
+      - "bubblelab/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  completion-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Completion tests
+        run: python -m unittest discover -s bubblelab/validation/completion/tests -p 'test_*.py' -v
+
+      - name: Final assembly tests
+        run: python -m unittest discover -s bubblelab/validation/final/tests -p 'test_*.py' -v
+
+      - name: Product-owned completion audit
+        run: python bubblelab/validation/completion/run_completion_audit.py --assert-honest
+
+      - name: Product-owned final assembly
+        run: python bubblelab/validation/final/run_final_validation.py --assert-honest --no-execute
+
+      - name: Product regression gate
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          excluded = (
+              Path("bubblelab/validation/completion/tests"),
+              Path("bubblelab/validation/final/tests"),
+          )
+          test_dirs = sorted({
+              p.parent
+              for p in Path("bubblelab").rglob("test_*.py")
+              if not any(root in p.parents for root in excluded)
+          })
+          failures = []
+          for directory in test_dirs:
+              result = subprocess.run(
+                  [sys.executable, "-m", "unittest", "discover", "-s", str(directory), "-p", "test_*.py", "-v"],
+                  check=False,
+              )
+              if result.returncode:
+                  failures.append(str(directory))
+          if failures:
+              print("Failed Product regression directories:", *failures, sep="\n- ", file=sys.stderr)
+              raise SystemExit(1)
+          PY
+
+      - name: Compile Python
+        run: python -m compileall -q bubblelab
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: bubblelab/viewer/package-lock.json
+
+      - name: Viewer install
+        working-directory: bubblelab/viewer
+        run: npm ci
+
+      - name: Viewer tests
+        working-directory: bubblelab/viewer
+        run: npm test
+
+      - name: Viewer build
+        working-directory: bubblelab/viewer
+        run: npm run build
+
+      - name: Upload Product-owned completion reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: product-completion-reports
+          path: |
+            bubblelab/validation/completion/artifacts/completion-audit.json
+            bubblelab/validation/completion/artifacts/completion-audit.md
+            bubblelab/validation/final/artifacts/final-validation.json
+            bubblelab/validation/final/artifacts/final-validation.md
+          if-no-files-found: error

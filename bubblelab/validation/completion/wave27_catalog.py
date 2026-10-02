@@ -10,9 +10,9 @@ def _e(r,*paths):
         if p not in CATALOG[r]["evidence"]: CATALOG[r]["evidence"].append(p)
 def _f(r,**features): CATALOG[r]["features"].update(features)
 
-MULTI="tasks/bubble-multievent-topology-gas-network-foundation/deliverable.json"
-NECK="tasks/bubble-3d-multineck-breakup-foundation/deliverable.json"
-BORDER="tasks/bubble-liquid-border-global-cfd-foundation/deliverable.json"
+MULTI="bubblelab/validation/completion/evidence/historical-deliveries/bubble-multievent-topology-gas-network-foundation.json"
+NECK="bubblelab/validation/completion/evidence/historical-deliveries/bubble-3d-multineck-breakup-foundation.json"
+BORDER="bubblelab/validation/completion/evidence/historical-deliveries/bubble-liquid-border-global-cfd-foundation.json"
 for r in ("R1","R9","R12","R13","R30","R31","R35","R38","R39"): _e(r,MULTI)
 for r in ("R1","R10","R16","R30","R31","R32","R35","R38","R39"): _e(r,NECK)
 for r in ("R1","R10","R11","R20","R30","R31","R32","R35","R38","R39"): _e(r,BORDER)

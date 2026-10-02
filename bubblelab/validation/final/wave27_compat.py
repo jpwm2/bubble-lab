@@ -10,6 +10,7 @@ import json
 from typing import Any
 from . import suite as runner
 from . import wave27_suite
+from bubblelab.validation.completion.historical_evidence import historical_delivery, historical_delivery_source
 
 _ORIGINAL_HISTORICAL_RECORD = runner._historical_record
 _MULTINECK_TASK = "bubble-3d-multineck-breakup-foundation"
@@ -19,11 +20,11 @@ _ACCEPTANCE = "all assignment acceptance steps submitted by the canonical AI Run
 def _historical_record(spec: dict[str, Any]) -> dict[str, Any]:
     if str(spec.get("task_id")) != _MULTINECK_TASK:
         return _ORIGINAL_HISTORICAL_RECORD(spec)
-    path = runner.ROOT / "tasks" / _MULTINECK_TASK / "deliverable.json"
+    source = historical_delivery_source(_MULTINECK_TASK)
     try:
-        delivery = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        return {"name": spec["name"], "execution": "ACCEPTED_HISTORICAL", "source": path.relative_to(runner.ROOT).as_posix(), "result": "FAIL", "reason": spec["reason"], "diagnostic": str(exc)}
+        delivery = historical_delivery(_MULTINECK_TASK)
+    except (OSError, json.JSONDecodeError, KeyError, ValueError) as exc:
+        return {"name": spec["name"], "execution": "ACCEPTED_HISTORICAL", "source": source, "result": "FAIL", "reason": spec["reason"], "diagnostic": str(exc)}
     validation = delivery.get("validation")
     passed = (
         delivery.get("outcome") == "DELIVERED"
@@ -36,12 +37,11 @@ def _historical_record(spec: dict[str, Any]) -> dict[str, Any]:
     return {
         "name": spec["name"],
         "execution": "ACCEPTED_HISTORICAL",
-        "source": path.relative_to(runner.ROOT).as_posix(),
+        "source": source,
         "result": "PASS" if passed else "FAIL",
         "reason": spec["reason"],
         "checks": [{"name": _ACCEPTANCE, "result": "PASS" if passed else "FAIL", "run_id": validation.get("workflow_run_id") if isinstance(validation, dict) else None}],
     }
-
 
 def build_final_validation(*, execute: bool = True, assert_honest: bool = False) -> dict[str, Any]:
     original = runner._historical_record
