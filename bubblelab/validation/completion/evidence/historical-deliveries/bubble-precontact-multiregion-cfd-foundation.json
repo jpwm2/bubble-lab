@@ -1,0 +1,12 @@
+{
+  "implementation_validation_head": null,
+  "kind": "sanitized-historical-delivery-evidence",
+  "note": "Public compatibility evidence. Private logs, notes, branch metadata and operational details are intentionally omitted.",
+  "outcome": null,
+  "schema_version": 1,
+  "source_path": "tasks/bubble-precontact-multiregion-cfd-foundation/deliverable.json",
+  "source_sha256": "08545f49832576005b24f95156705e5d786d8b0524d01556e256e54229ee4c1d",
+  "status": "DELIVERED",
+  "task_id": "bubble-precontact-multiregion-cfd-foundation",
+  "validation": [{"name":"precontact-cfd-unit-tests","result":"PASS","run_id":35427241758},{"name":"squeeze-benchmark","result":"PASS","run_id":35427241758},{"name":"refinement-benchmark","result":"PASS","run_id":35427241758},{"name":"feedback-benchmark","result":"PASS","run_id":35427241758},{"name":"precontact-cfd-runtime-e2e","result":"PASS","run_id":35427241758},{"name":"full-runtime-regression","result":"PASS","run_id":35427277565},{"name":"placeholder-scan","result":"PASS","run_id":35427241758}]
+}
