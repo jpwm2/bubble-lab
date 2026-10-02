@@ -34,7 +34,7 @@ class CompletionAuditTests(unittest.TestCase):
         self.assertEqual([item["requirement_id"] for item in changes], ["R16"])
         self.assertEqual(changes[0]["from"], "PARTIAL")
         self.assertEqual(changes[0]["to"], "SATISFIED")
-        self.assertIn("tasks/bubble-singular-breakup-cfd-foundation/deliverable.json", changes[0]["evidence_added"])
+        self.assertIn("bubblelab/validation/completion/evidence/historical-deliveries/bubble-singular-breakup-cfd-foundation.json", changes[0]["evidence_added"])
 
     def test_all_evidence_paths_exist(self) -> None:
         for row in self.audit["rows"]:
